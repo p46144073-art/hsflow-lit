@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>高速流場文獻導引｜兩條可追證據的閱讀路線</title>
+<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：兩條以追問句串起的文獻路線。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell">
+    <div class="brand"><span class="tick"></span><b>高速流場文獻導引</b></div>
+    <nav class="mast-nav">
+      <a href="index.html" aria-current="page">總覽</a>
+      <a href="track-a.html">軌道 A</a>
+      <a href="track-b.html">軌道 B</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero shell fade">
+  <p class="eyebrow">Compressible Flow · Reading Route · 01</p>
+  <h1 class="hero-thesis">別只問「模型對不對」
+    <em>要問這個數字是在哪一種量測情境下產生的。</em>
+  </h1>
+  <p class="hero-sub">
+    兩條路線，兩種截然不同的知識形態。左邊是非穩態的、設施相依的、必須靠診斷技術才能定義的量；
+    右邊是一條常微分方程與它九十年來的近似解族譜。把它們放在同一個站裡，是因為現代超燃衝壓與乘波體設計同時需要兩者。
+  </p>
+
+  <div class="plate">
+    <svg viewBox="0 0 1120 340" role="img" aria-label="左：凹槽上方的非穩態剪切層與聲學回饋迴路；右：圓錐上的附體錐形震波與自相似射線。">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#939DAC"/>
+        </marker>
+        <marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" fill="#4FC6DE"/>
+        </marker>
+        <linearGradient id="fadeC" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#4FC6DE" stop-opacity=".15"/>
+          <stop offset="1" stop-color="#4FC6DE" stop-opacity=".55"/>
+        </linearGradient>
+      </defs>
+
+      <!-- ============ 左：剪切層 / 凹槽 ============ -->
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.4">
+        <text x="46" y="34" fill="#5F6875">A · UNSTEADY</text>
+      </g>
+      <!-- 自由流 -->
+      <g stroke="#5F6875" stroke-width="1" marker-end="url(#ar)" opacity=".8">
+        <line x1="46" y1="86" x2="128" y2="86"/>
+        <line x1="46" y1="112" x2="128" y2="112"/>
+        <line x1="46" y1="138" x2="128" y2="138"/>
+      </g>
+      <text x="46" y="72" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5F6875">M∞ &gt; 1</text>
+
+      <!-- 壁面與凹槽 -->
+      <path d="M60 170 H210 V252 H352 V170 H524" fill="none" stroke="#ECE7DB" stroke-width="1.6"/>
+      <path d="M210 170 H352 V252 H210 Z" fill="#4FC6DE" opacity=".045"/>
+
+      <!-- 剪切層：厚度沿流向成長 -->
+      <path d="M210 170 C238 156, 252 186, 280 170 C308 152, 326 192, 352 172"
+            fill="none" stroke="url(#fadeC)" stroke-width="9" stroke-linecap="round"/>
+      <path d="M210 170 C238 156, 252 186, 280 170 C308 152, 326 192, 352 172"
+            fill="none" stroke="#4FC6DE" stroke-width="1.3"/>
+      <!-- 渦捲 -->
+      <g fill="none" stroke="#4FC6DE" stroke-width="1.1" opacity=".85">
+        <path d="M252 172 a7 7 0 1 1 -5 -7"/>
+        <path d="M300 168 a10 10 0 1 1 -7 -9.6"/>
+        <path d="M340 174 a13 13 0 1 1 -9.5 -12.4"/>
+      </g>
+      <!-- 尾緣撞擊 + 聲學回饋 -->
+      <circle cx="352" cy="171" r="3" fill="#ECE7DB"/>
+      <path d="M348 186 C300 232, 250 232, 214 190" fill="none" stroke="#4FC6DE"
+            stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#arC)" opacity=".9"/>
+      <text x="252" y="228" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4FC6DE">聲波回饋</text>
+
+      <!-- 回饋造成的壓力振盪波形 -->
+      <path d="M60 300 q12 -18 24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0"
+            fill="none" stroke="#4FC6DE" stroke-width="1" opacity=".45"/>
+      <text x="60" y="322" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5F6875" letter-spacing="1.2">
+        ROSSITER MODES · f(n)</text>
+      <text x="216" y="163" font-family="IBM Plex Mono, monospace" font-size="10" fill="#939DAC">L</text>
+      <text x="358" y="215" font-family="IBM Plex Mono, monospace" font-size="10" fill="#939DAC">D</text>
+
+      <!-- ============ 刀口 ============ -->
+      <line x1="560" y1="24" x2="560" y2="316" stroke="#313846" stroke-width="1"/>
+      <circle cx="560" cy="170" r="3.5" fill="#14171C" stroke="#313846"/>
+
+      <!-- ============ 右：錐形流 ============ -->
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.4">
+        <text x="1074" y="34" fill="#5F6875" text-anchor="end">B · SELF-SIMILAR</text>
+      </g>
+      <g stroke="#5F6875" stroke-width="1" marker-end="url(#ar)" opacity=".8">
+        <line x1="596" y1="120" x2="654" y2="120"/>
+        <line x1="596" y1="168" x2="654" y2="168"/>
+        <line x1="596" y1="216" x2="654" y2="216"/>
+      </g>
+
+      <!-- 對稱軸 -->
+      <line x1="620" y1="288" x2="1078" y2="288" stroke="#313846" stroke-width="1" stroke-dasharray="9 5"/>
+      <!-- 錐面 -->
+      <path d="M660 288 L1060 173 L1060 288 Z" fill="#E8A03C" opacity=".07"/>
+      <path d="M660 288 L1060 173" fill="none" stroke="#ECE7DB" stroke-width="1.6"/>
+      <!-- 錐形震波 -->
+      <path d="M660 288 L1060 57" fill="none" stroke="#E8A03C" stroke-width="1.8"/>
+      <!-- 自相似射線：沿每條射線物理量固定 -->
+      <g stroke="#E8A03C" stroke-width=".9" opacity=".38">
+        <line x1="660" y1="288" x2="1060" y2="86"/>
+        <line x1="660" y1="288" x2="1060" y2="108"/>
+        <line x1="660" y1="288" x2="1060" y2="130"/>
+        <line x1="660" y1="288" x2="1060" y2="152"/>
+      </g>
+      <!-- 角度弧 -->
+      <path d="M760 288 A100 100 0 0 0 754 260" fill="none" stroke="#ECE7DB" stroke-width="1" opacity=".7"/>
+      <text x="768" y="278" font-family="IBM Plex Mono, monospace" font-size="11" fill="#ECE7DB">θc</text>
+      <path d="M820 288 A160 160 0 0 0 800 196" fill="none" stroke="#E8A03C" stroke-width="1" opacity=".8"/>
+      <text x="828" y="248" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8A03C">β</text>
+      <text x="884" y="122" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5F6875" letter-spacing="1.1">
+        沿射線 · 物理量固定</text>
+      <text x="1074" y="322" font-family="IBM Plex Mono, monospace" font-size="10"
+            fill="#5F6875" text-anchor="end" letter-spacing="1.2">TAYLOR–MACCOLL ODE</text>
+    </svg>
+    <div class="plate-cap">
+      <span>左：回饋迴路決定頻率，量測情境決定數字</span>
+      <span>右：一條 ODE 決定整個流場</span>
+    </div>
+  </div>
+</section>
+
+<section class="shell">
+  <div class="tracks">
+
+    <a class="track-card" href="track-a.html" data-hue="cyan">
+      <span class="code">A</span>
+      <span class="latin">Supersonic shear layers &amp; cavity flows</span>
+      <h2>超音速剪切層與凹槽流場</h2>
+      <p>從 Brown–Roshko 的大尺度結構，走到對流馬赫數的壓縮性抑制，再到 Rossiter 回饋振盪與超燃衝壓的凹槽穩焰。</p>
+      <div class="meta">
+        <span><b id="n-A">–</b> 篇</span>
+        <span>年代 <b id="span-A">–</b></span>
+        <span>書目已核 <b id="v-A">–</b></span>
+      </div>
+      <span class="go">進入軌道 A →</span>
+    </a>
+
+    <a class="track-card" href="track-b.html" data-hue="amber">
+      <span class="code">B</span>
+      <span class="latin">Taylor–Maccoll conical flow</span>
+      <h2>Taylor–Maccoll 三維錐形流理論解</h2>
+      <p>從 1933 年的原始論文，經 Kopal／Sims 表格與各代近似解，到 Mölder 的四組解與 2024 年的完整重整。</p>
+      <div class="meta">
+        <span><b id="n-B">–</b> 篇</span>
+        <span>年代 <b id="span-B">–</b></span>
+        <span>書目已核 <b id="v-B">–</b></span>
+      </div>
+      <span class="go">進入軌道 B →</span>
+    </a>
+
+  </div>
+</section>
+
+<section class="band">
+  <div class="shell band-grid">
+    <div>
+      <p class="eyebrow">Reading rule</p>
+      <h2>閱讀規則</h2>
+    </div>
+    <ul class="note-list">
+      <li><b>數字不能脫離量測法。</b>剪切層成長率取決於厚度定義（Pitot 剖面、視覺邊界、渦度厚度）；凹槽頻率取決於 L/D、來流邊界層厚度與感測器位置。同一個物理量，換個定義就換個值。</li>
+      <li><b>理論解不能脫離假設。</b>Taylor–Maccoll 假設無黏、無旋、軸對稱、量熱完全氣體。任何與實驗的偏差，先檢查是哪一條假設被違反，再懷疑數值方法。</li>
+      <li><b>表格不是獨立驗證來源。</b>Sims (NASA SP-3004) 的數據源自 Kopal (1947)；用兩者互相驗證等於自我驗證。</li>
+      <li><b>每張卡片的「核心貢獻」只在讀過原文後才填。</b>沒讀過就是「待補」，不用摘要或二次文獻補位。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band">
+  <div class="shell band-grid">
+    <div>
+      <p class="eyebrow">Data honesty</p>
+      <h2>資料誠實性</h2>
+    </div>
+    <ul class="note-list">
+      <li><b>書目已核</b>　卷、期、頁碼或 DOI 至少對過出版社頁面，或在兩個以上獨立來源中一致。</li>
+      <li><b>書目待核</b>　僅有單一來源或憑印象，尚未查證。引用前請自行確認。</li>
+      <li><b>來源不一致</b>　不同文獻對同一筆的年份或頁碼記載相衝突，卡片底部會寫明衝突內容與建議採用哪一版。目前有四筆：Heller &amp; Bliss (1975) 的報告編號、Taylor &amp; Maccoll (1933) 的頁碼、Maccoll (1937) 的年份、Mölder (1967) 的頁碼。</li>
+      <li><b>頁碼欄目前全部空白。</b>關鍵主張要對到頁碼，必須逐篇讀 PDF。這是留給你的工作，不是可以自動生成的東西。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band">
+  <div class="shell band-grid">
+    <div>
+      <p class="eyebrow">How to extend</p>
+      <h2>新增你自己的文獻</h2>
+    </div>
+    <ul class="note-list">
+      <li>打開 <b>assets/data.js</b>，在 <b>LIBRARY</b> 陣列裡照著註解格式加一個物件即可。年代導軌、篩選標籤、統計數字全部會自動更新，不需要改動任何 HTML。</li>
+      <li><b>topic</b> 欄位是自由字串，填新的值就會自動長出新的篩選晶片。</li>
+      <li>要新增第三條軌道，在 <b>TRACKS</b> 加一組設定，複製 track-a.html 改兩個地方：<code>initTrack("A")</code> 的參數，以及頁首標題。</li>
+      <li>整站是三個純檔案（HTML／CSS／JS），沒有建置流程、沒有相依套件，可直接丟到 GitHub Pages 或任何靜態主機。</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="shell">
+    <p>本站為文獻導引工具，不構成設計程序或試驗規範。所有書目資料以出版社頁面為準；卡片上的「追問」由編輯者撰寫，不代表原作者觀點。</p>
+    <p>高速流場文獻導引 · 兩條路線</p>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>initHome();</script>
+</body>
+</html>
