@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>高速流場文獻導引｜兩條可追證據的閱讀路線</title>
-<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：43 篇文獻與 3 本參考書，以追問句串起的兩條閱讀路線。">
+<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：42 篇文獻與 3 本參考書，以追問句串起的兩條閱讀路線。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -327,10 +327,10 @@ const LIBRARY = [
     venue: "J. Fluid Mech. 64(4), 775–816",
     doi: "10.1017/S002211207400190X",
     question: "混合層的成長，究竟被密度比控制，還是被大尺度結構的配對過程控制？",
-    contribution: null,
-    pages: null,
-    biblioCheck: "unverified",
-    note: "本站作者未逐項核對卷期頁碼，請自行對照 Cambridge Core 後改為 verified。"
+    contribution: "以氮／氦兩股不同氣體改變密度比，火花陰影照顯示不論密度比為何，混合層都由大尺度擬序結構主導；高速攝影顯示這些結構以近乎定速對流，並藉與鄰近結構合併而不連續地增大其尺寸與間距。跨層密度比的大幅改變對展開角影響相對小，因此把一股為超音速時觀察到的強效應歸因於壓縮性，而非長期以來認定的密度效應。",
+    pages: "775, 802–803",
+    biblioCheck: "verified",
+    note: "PDF 全文 49 頁但頁碼範圍僅 42 頁，差額是卷末 7 張未編號圖版（Plate 1–7），非頁碼有誤。"
   },
   {
     id: "A-02", track: "A", year: 1988, method: "實驗", topic: "自由剪切層",
@@ -517,14 +517,14 @@ const LIBRARY = [
   {
     id: "A-17", track: "A", year: 2017, method: "數值", topic: "全域穩定性",
     title: "Biglobal instabilities of compressible open-cavity flows",
-    authors: "Sun, Y.; 等",
-    venue: "J. Fluid Mech.",
-    doi: null,
+    authors: "Sun, Y.; Taira, K.; Cattafesta, L.N.; Ukeiley, L.S.",
+    venue: "J. Fluid Mech. 826, 270–301",
+    doi: "10.1017/jfm.2017.416",
     question: "全域穩定性分析找到的模態，能不能一對一對應到實驗量到的 Rossiter 峰？",
-    contribution: null,
-    pages: null,
-    biblioCheck: "unverified",
-    note: "作者群與卷期頁碼待補。可從 sunlab.syr.edu 的 PDF 取得完整書目。"
+    contribution: "對 L/D = 2 與 6 的矩形凹槽做 DNS 與雙全域穩定性分析。提高馬赫數在次音速域使流場不穩定、在跨音速域反而穩定，且會壓抑主導的三維本徵模態。短凹槽（L/D = 2）的三維模態主要源自離心不穩定；長凹槽（L/D = 6）另出現由後緣延伸至中段的模態。主導 Rossiter 模態會隨馬赫數由模態 I 移轉到模態 II。",
+    pages: "287, 289",
+    biblioCheck: "verified",
+    note: "注意口徑：文中是把本徵模態頻率對到 Rossiter 半經驗公式與 Brès (2007) 的計算，不是直接對到實驗量測峰值。p.287 確認領先本徵模態皆屬剪切層型 Rossiter 模態，p.289 指出主導模態大致吻合，但 L/D = 6、M∞ 較高時 DNS 由 wake mode 主導而與穩定性分析分歧。"
   },
 
   /* --- A3 凹槽作為超燃衝壓穩焰器 --- */
@@ -640,18 +640,7 @@ const LIBRARY = [
     biblioCheck: "conflict",
     note: "年份有兩種記載：Springer 與 Royal Society DOI 指向 1937；JFM (2024) 的參考文獻列為 1936, 159(898)。DOI rspa.1937.0083 支持 1937。"
   },
-  {
-    id: "B-04", track: "B", year: 1942, method: "理論", topic: "內收縮流場",
-    title: "Die achsensymmetrische kegelige Überschallströmung（Busemann 內收縮等熵壓縮流場）",
-    authors: "Busemann, A.",
-    venue: "書目待補",
-    doi: null,
-    question: "等熵內收縮壓縮為何能做到「幾乎無震波損失」？代價落在哪裡？",
-    contribution: null,
-    pages: null,
-    biblioCheck: "unverified",
-    note: "年份（1942 或 1944）與出處在二次文獻中不一致，本站作者未取得原文。這是整條軌道最需要你親自查證的一筆。"
-  },
+  /* B-04（Busemann 1942 原文）已移除：書目無法查證，且內收縮流場已由 B-12、B-13 涵蓋。 */
 
   /* --- B2 表格化與數值解 --- */
   {
@@ -920,7 +909,11 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 const CHK={verified:{t:"書目已核",w:0},unverified:{t:"書目待核",w:1},conflict:{t:"來源不一致",w:1}};
 const AC={A:{ac:"var(--teal)",acl:"var(--teal-lite)"},B:{ac:"var(--rust)",acl:"var(--rust-lite)"}};
 
-const byTrack=t=>LIBRARY.filter(p=>p.track===t).sort((a,b)=>a.year-b.year||a.id.localeCompare(b.id));
+/* 依 id 排序，不是依年代。id 本身就是編輯者排好的閱讀路線：
+   軌道 A 分成 A1 剪切層（A-01~A-11）、A2 凹槽振盪（A-12~A-17）、
+   A3 超燃衝壓穩焰（A-18~A-23）三組，每組內部已經是年代遞增。
+   改用年代全域排序會把這三組打散，所以這裡照 id 走。 */
+const byTrack=t=>LIBRARY.filter(p=>p.track===t).sort((a,b)=>a.id.localeCompare(b.id));
 const ORDER={A:byTrack("A"),B:byTrack("B")};
 /* 教科書／工具書不計入「篇文獻」，另以「參考書」單獨計數。
    側欄清單、年代導軌、卡片渲染一律沿用 ORDER，不受此區分影響。 */
