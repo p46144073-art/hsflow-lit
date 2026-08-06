@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>高速流場文獻導引｜兩條可追證據的閱讀路線</title>
-<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：46 篇文獻，以追問句串起的兩條閱讀路線。">
+<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：43 篇文獻與 3 本參考書，以追問句串起的兩條閱讀路線。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -159,13 +159,16 @@ main{ margin-left:var(--side); padding:calc(var(--top) + 30px) 34px 96px; }
   font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#6F819A; text-transform:uppercase;
 }
 
-/* ---------- 統計四格 ---------- */
-.stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0; }
+/* ---------- 統計五格 ---------- */
+.stats{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin:22px 0; }
+@media (max-width:1000px){ .stats{ grid-template-columns:repeat(3,1fr); } }
 @media (max-width:760px){ .stats{ grid-template-columns:repeat(2,1fr); } }
 .stat{ background:var(--white); border:1px solid var(--line); border-radius:16px; padding:22px 20px; }
 .stat b{ display:block; font-family:var(--disp); font-size:38px; font-weight:700; line-height:1; letter-spacing:-.02em; }
 .stat span{ font-family:var(--mono); font-size:11px; color:var(--dim); letter-spacing:.05em; }
 .stat.hi b{ color:var(--gold); }
+.stat.era{ padding-left:15px; padding-right:15px; }
+.stat.era b{ font-size:24px; letter-spacing:0; white-space:nowrap; }
 
 /* ---------- 軌道卡 ---------- */
 .tcards{ display:grid; gap:14px; margin:22px 0 34px; }
@@ -919,6 +922,11 @@ const AC={A:{ac:"var(--teal)",acl:"var(--teal-lite)"},B:{ac:"var(--rust)",acl:"v
 
 const byTrack=t=>LIBRARY.filter(p=>p.track===t).sort((a,b)=>a.year-b.year||a.id.localeCompare(b.id));
 const ORDER={A:byTrack("A"),B:byTrack("B")};
+/* 教科書／工具書不計入「篇文獻」，另以「參考書」單獨計數。
+   側欄清單、年代導軌、卡片渲染一律沿用 ORDER，不受此區分影響。 */
+const isBook=p=>p.method==="教科書";
+const papersOf=list=>list.filter(p=>!isBook(p));
+const booksOf=list=>list.filter(isBook);
 const seqOf=p=>ORDER[p.track].findIndex(x=>x.id===p.id)+1;
 
 const state={view:"home",methods:new Set(),topics:new Set(),q:""};
@@ -970,9 +978,12 @@ const PLATE=`
 
 /* ---------- 首頁 ---------- */
 function viewHome(){
-  const nAll=LIBRARY.length, nV=LIBRARY.filter(p=>p.biblioCheck==="verified").length;
-  const nPg=LIBRARY.filter(p=>p.pages).length;
-  const tc=t=>{const it=ORDER[t],T=TRACKS[t];return `
+  const PAPERS=papersOf(LIBRARY), BOOKS=booksOf(LIBRARY);
+  const nAll=PAPERS.length, nBk=BOOKS.length;
+  const nV=PAPERS.filter(p=>p.biblioCheck==="verified").length;
+  const nVBk=BOOKS.filter(p=>p.biblioCheck==="verified").length;
+  const nPg=PAPERS.filter(p=>p.pages).length;
+  const tc=t=>{const it=papersOf(ORDER[t]),T=TRACKS[t];return `
     <button class="tcard" data-go="${t}" style="--ac:${AC[t].ac};--acl:${AC[t].acl}">
       <span class="code">${t}</span>
       <span class="lat">${esc(T.latin)}</span>
@@ -1001,7 +1012,8 @@ function viewHome(){
   <div class="stats">
     <div class="stat"><b>${nAll}</b><span>篇文獻</span></div>
     <div class="stat"><b>${nV}</b><span>書目已核</span></div>
-    <div class="stat"><b>1933–2024</b><span>涵蓋年代</span></div>
+    <div class="stat"><b>${nBk}</b><span>參考書</span></div>
+    <div class="stat era"><b>1933–2024</b><span>涵蓋年代</span></div>
     <div class="stat hi"><b>${Math.round(nPg/nAll*100)}%</b><span>關鍵主張附頁碼</span></div>
   </div>
 
@@ -1020,7 +1032,7 @@ function viewHome(){
   <section class="band">
     <p class="eyebrow">Data honesty</p><h2>資料誠實性</h2>
     <ul>
-      <li><b>書目已核</b>　卷、期、頁碼或 DOI 至少對過出版社頁面，或在兩個以上獨立來源中一致。目前 ${nV} 筆。</li>
+      <li><b>書目已核</b>　卷、期、頁碼或 DOI 至少對過出版社頁面，或在兩個以上獨立來源中一致。目前 ${nAll} 篇文獻中有 ${nV} 筆，另有 ${nVBk} 本參考書亦已核。</li>
       <li><b>書目待核</b>　僅單一來源或憑印象，引用前請自行確認。</li>
       <li><b>來源不一致</b>　不同文獻記載相衝突，卡片底部寫明衝突內容與建議採用版本。目前四筆：Heller &amp; Bliss (1975) 報告編號、Taylor &amp; Maccoll (1933) 頁碼、Maccoll (1937) 年份、Mölder (1967) 頁碼。</li>
       <li><b>頁碼欄目前 ${nPg===0?"全部空白":"完成 "+nPg+" 筆"}。</b>關鍵主張要對到頁碼必須逐篇讀 PDF，這是留給你的工作。</li>
