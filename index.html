@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>高速流場文獻導引｜兩條可追證據的閱讀路線</title>
-<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：42 篇文獻與 3 本參考書，以追問句串起的兩條閱讀路線。">
+<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：44 篇文獻與 3 本參考書，以追問句串起的兩條閱讀路線。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
   --gold:#F0B429;  --blue:#2B57D6;
   --teal:#0E8A8A;  --teal-lite:#E3F2F2;  --teal-bright:#4FC6DE;
   --rust:#B4611A;  --rust-lite:#FBEFE0;  --rust-bright:#E8A03C;
+  --iris:#5B57A6;  --iris-lite:#EDECF8;  --iris-bright:#8F8AD8;
   --hue:var(--blue); --hue-lite:#E7ECFB;
   --disp:"Archivo","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
@@ -28,6 +29,7 @@
 }
 [data-view="a"]{ --hue:var(--teal); --hue-lite:var(--teal-lite); }
 [data-view="b"]{ --hue:var(--rust); --hue-lite:var(--rust-lite); }
+[data-view="c"]{ --hue:var(--iris); --hue-lite:var(--iris-lite); }
 
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
@@ -173,6 +175,7 @@ main{ margin-left:var(--side); padding:calc(var(--top) + 30px) 34px 96px; }
 /* ---------- 軌道卡 ---------- */
 .tcards{ display:grid; gap:14px; margin:22px 0 34px; }
 @media (min-width:860px){ .tcards{ grid-template-columns:1fr 1fr; } }
+@media (min-width:1240px){ .tcards{ grid-template-columns:repeat(3,1fr); } }
 .tcard{
   background:var(--white); border:1px solid var(--line); border-radius:20px;
   padding:28px 26px; display:flex; flex-direction:column; gap:12px;
@@ -867,6 +870,34 @@ const LIBRARY = [
     doi: null,
     question: "標準教學版的 T–M 數值解法，其起始條件是怎麼給的？",
     contribution: null, pages: null, biblioCheck: "verified", note: null
+  },
+
+  /* ============ 軌道 C：三維錐流風洞實驗與紋影實證 ============ */
+
+  /* --- C1 紋影與定量密度場 --- */
+  {
+    id: "C-01", track: "C", year: 2007, method: "實驗", topic: "背景導向紋影",
+    title: "Background oriented schlieren for flow visualisation in hypersonic impulse facilities",
+    authors: "Ramanah, D.; Raghunath, S.; Mee, D.J.; Rösgen, T.; Jacobs, P.A.",
+    venue: "Shock Waves 17, 65–70",
+    doi: "10.1007/s00193-007-0097-7",
+    question: "脈衝設施的測試時間只有毫秒量級，BOS 在這個窗口內解析出的密度梯度，足以量到錐形震波角嗎，還是只能定性標出波系位置？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "unverified",
+    note: "書目依 NASA ADS 記錄（bibcode 2007ShWav..17...65R）與 Springer 條目交叉比對填入，兩者一致。本次環境無法開啟出版社頁面逐字核對，故標待核；引用前請點 DOI 自行確認卷期頁。"
+  },
+  {
+    id: "C-02", track: "C", year: 2025, method: "實驗", topic: "定量紋影",
+    title: "Analysis of the density field around a supersonic conical projectile using quantitative schlieren",
+    authors: "Cooke, J.; Falls, J.; Strebe, K.; Campos, A.; Salari, K.; Morrow, D.; Harris, E.; Hargather, M.J.",
+    venue: "Meas. Sci. Technol. 36(8), 085208",
+    doi: "10.1088/1361-6501/adf985",
+    question: "反演出的密度場與 Taylor–Maccoll 解的偏差，是 Abel 反轉與 Gladstone–Dale 換算的方法誤差，還是黏性與尖端鈍化這些理論排除掉的真實物理？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "unverified",
+    note: "書目依 NASA ADS 記錄（bibcode 2025MeScT..36h5208C）與 IOPscience 條目交叉比對填入，兩者一致。同樣未能開啟出版社頁面逐字核對，故標待核。"
   }
 
 ];
@@ -890,6 +921,15 @@ const TRACKS = {
     long: "錐形自相似把一個三維無黏流場壓成單一自變數的常微分方程。這個化約極為便宜，也極為昂貴 —— 便宜在它給出可積分的精確解，昂貴在它排除了黏性、旋度、攻角與有限長度。這條路線的問題始終是：九十年來的每一次「新解」或「新近似」，是放寬了哪一條假設，又付出什麼代價。",
     file: "track-b.html",
     hue: "amber"
+  },
+  C: {
+    code: "C",
+    label: "三維錐流風洞實驗與紋影實證",
+    latin: "CONICAL FLOW EXPERIMENTS & SCHLIEREN",
+    thesis: "理論說錐形流場沿射線自相似，但你只能透過一束光和一片刀口去證明它。",
+    long: "軌道 B 的常微分方程給出精確解，這條路線問的是那個解到底被什麼量到過。錐面壓力、震波角、密度場 —— 沒有一項是直接讀數，全都要經過刀口、背景圖樣或 Abel 反演換算出來。所以核心爭點是：實驗與 Taylor–Maccoll 的偏差，有多少來自黏性、尖端鈍化與有限長度這些被理論排除的物理，又有多少只是量測技術與反演方法自己的誤差。分不清這兩者，就沒有資格說理論被驗證了。",
+    file: "track-c.html",
+    hue: "iris"
   }
 };
 
@@ -907,14 +947,14 @@ const save=()=>Store.set(KEY,JSON.stringify(done));
 
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const CHK={verified:{t:"書目已核",w:0},unverified:{t:"書目待核",w:1},conflict:{t:"來源不一致",w:1}};
-const AC={A:{ac:"var(--teal)",acl:"var(--teal-lite)"},B:{ac:"var(--rust)",acl:"var(--rust-lite)"}};
+const AC={A:{ac:"var(--teal)",acl:"var(--teal-lite)"},B:{ac:"var(--rust)",acl:"var(--rust-lite)"},C:{ac:"var(--iris)",acl:"var(--iris-lite)"}};
 
 /* 依 id 排序，不是依年代。id 本身就是編輯者排好的閱讀路線：
    軌道 A 分成 A1 剪切層（A-01~A-11）、A2 凹槽振盪（A-12~A-17）、
    A3 超燃衝壓穩焰（A-18~A-23）三組，每組內部已經是年代遞增。
    改用年代全域排序會把這三組打散，所以這裡照 id 走。 */
 const byTrack=t=>LIBRARY.filter(p=>p.track===t).sort((a,b)=>a.id.localeCompare(b.id));
-const ORDER={A:byTrack("A"),B:byTrack("B")};
+const ORDER={A:byTrack("A"),B:byTrack("B"),C:byTrack("C")};
 /* 教科書／工具書不計入「篇文獻」，另以「參考書」單獨計數。
    側欄清單、年代導軌、卡片渲染一律沿用 ORDER，不受此區分影響。 */
 const isBook=p=>p.method==="教科書";
@@ -996,6 +1036,7 @@ function viewHome(){
     <div class="cta">
       <button class="btn solid" data-go="A">進入軌道 A →</button>
       <button class="btn" data-go="B">進入軌道 B</button>
+      <button class="btn" data-go="C">進入軌道 C</button>
     </div>
     <div class="plate">${PLATE}
       <div class="cap"><span>左：回饋迴路決定頻率，量測情境決定數字</span><span>右：一條 ODE 決定整個流場</span></div>
@@ -1006,11 +1047,11 @@ function viewHome(){
     <div class="stat"><b>${nAll}</b><span>篇文獻</span></div>
     <div class="stat"><b>${nV}</b><span>書目已核</span></div>
     <div class="stat"><b>${nBk}</b><span>參考書</span></div>
-    <div class="stat era"><b>1933–2024</b><span>涵蓋年代</span></div>
+    <div class="stat era"><b>1933–2025</b><span>涵蓋年代</span></div>
     <div class="stat hi"><b>${Math.round(nPg/nAll*100)}%</b><span>關鍵主張附頁碼</span></div>
   </div>
 
-  <div class="tcards">${tc("A")}${tc("B")}</div>
+  <div class="tcards">${tc("A")}${tc("B")}${tc("C")}</div>
 
   <section class="band">
     <p class="eyebrow">Reading rule</p><h2>閱讀規則</h2>
@@ -1128,7 +1169,7 @@ function paintRoute(){
       <span class="r-num">${done[p.id]?"✓":i+1}</span>
       <span class="r-txt"><span>${esc(p.method)} · ${p.year}</span><b>${esc(p.title)}</b></span>
     </button>`).join("");};
-  const el=document.getElementById("rlist"); el.innerHTML=g("A")+g("B");
+  const el=document.getElementById("rlist"); el.innerHTML=g("A")+g("B")+g("C");
   el.querySelectorAll(".r-item").forEach(b=>b.onclick=()=>{
     const t=b.dataset.t.toLowerCase();
     if(state.view!==t){ location.hash="#/"+t; setTimeout(()=>document.getElementById("c-"+b.dataset.id)?.scrollIntoView({block:"start"}),90); }
@@ -1147,7 +1188,7 @@ function paintXP(){
 /* ---------- 路由 ---------- */
 function route(){
   const h=location.hash.replace("#/","").toLowerCase();
-  const v=(h==="a"||h==="b")?h:"home";
+  const v=(h==="a"||h==="b"||h==="c")?h:"home";
   state.view=v; document.documentElement.setAttribute("data-view",v);
   const main=document.getElementById("main");
   if(v==="home"){ main.innerHTML=viewHome();
