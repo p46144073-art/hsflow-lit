@@ -909,7 +909,11 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 const CHK={verified:{t:"書目已核",w:0},unverified:{t:"書目待核",w:1},conflict:{t:"來源不一致",w:1}};
 const AC={A:{ac:"var(--teal)",acl:"var(--teal-lite)"},B:{ac:"var(--rust)",acl:"var(--rust-lite)"}};
 
-const byTrack=t=>LIBRARY.filter(p=>p.track===t).sort((a,b)=>a.year-b.year||a.id.localeCompare(b.id));
+/* 依 id 排序，不是依年代。id 本身就是編輯者排好的閱讀路線：
+   軌道 A 分成 A1 剪切層（A-01~A-11）、A2 凹槽振盪（A-12~A-17）、
+   A3 超燃衝壓穩焰（A-18~A-23）三組，每組內部已經是年代遞增。
+   改用年代全域排序會把這三組打散，所以這裡照 id 走。 */
+const byTrack=t=>LIBRARY.filter(p=>p.track===t).sort((a,b)=>a.id.localeCompare(b.id));
 const ORDER={A:byTrack("A"),B:byTrack("B")};
 /* 教科書／工具書不計入「篇文獻」，另以「參考書」單獨計數。
    側欄清單、年代導軌、卡片渲染一律沿用 ORDER，不受此區分影響。 */
