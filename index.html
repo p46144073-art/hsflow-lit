@@ -160,6 +160,7 @@ main{ margin-left:var(--side); padding:calc(var(--top) + 30px) 34px 96px; }
   display:flex; gap:18px; justify-content:space-between; flex-wrap:wrap; margin-top:14px;
   font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#6F819A; text-transform:uppercase;
 }
+.plate .cap-note{ margin-top:9px; font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:#6F819A; }
 
 /* ---------- 統計五格 ---------- */
 .stats{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin:22px 0; }
@@ -966,7 +967,7 @@ const state={view:"home",methods:new Set(),topics:new Set(),q:""};
 
 /* ---------- SVG 簽名圖 ---------- */
 const PLATE=`
-<svg viewBox="0 0 1120 330" role="img" aria-label="左：凹槽上方的非穩態剪切層與聲學回饋迴路；右：圓錐上的附體錐形震波與自相似射線。">
+<svg viewBox="0 0 1120 330" role="img" aria-label="軌道 A（左）：凹槽上方的非穩態剪切層與聲學回饋迴路；軌道 B（右）：圓錐上的附體錐形震波與自相似射線。此圖不含軌道 C。">
 <defs>
 <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#7E90A8"/></marker>
 <marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#4FC6DE"/></marker>
@@ -1039,7 +1040,8 @@ function viewHome(){
       <button class="btn" data-go="C">進入軌道 C</button>
     </div>
     <div class="plate">${PLATE}
-      <div class="cap"><span>左：回饋迴路決定頻率，量測情境決定數字</span><span>右：一條 ODE 決定整個流場</span></div>
+      <div class="cap"><span>軌道 A：回饋迴路決定頻率，量測情境決定數字</span><span>軌道 B：一條 ODE 決定整個流場</span></div>
+      <p class="cap-note">此圖只畫軌道 A 與 B 這兩種知識形態的對照。軌道 C 是對右半邊那條 ODE 的實證檢驗，不在圖中。</p>
     </div>
   </section>
 
