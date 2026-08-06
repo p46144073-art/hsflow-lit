@@ -4,226 +4,1169 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>高速流場文獻導引｜兩條可追證據的閱讀路線</title>
-<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：兩條以追問句串起的文獻路線。">
+<meta name="description" content="超音速剪切層與凹槽流場、Taylor–Maccoll 三維錐流理論解：46 篇文獻，以追問句串起的兩條閱讀路線。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   配色：風洞報告 / 藍圖。冷調紙面 + 深藍墨卡片 + 金色重點。
+   ===================================================================== */
+:root{
+  --paper:#EBEEF2; --white:#FFFFFF; --paper-2:#F5F7F9;
+  --ink:#141C28;   --ink-2:#1E2A3C;  --ink-3:#2A3A50;
+  --line:#D5DBE3;  --line-2:#E4E9EF;
+  --txt:#18202C;   --dim:#5D6B7E;    --dim-2:#8A97A8;
+  --gold:#F0B429;  --blue:#2B57D6;
+  --teal:#0E8A8A;  --teal-lite:#E3F2F2;  --teal-bright:#4FC6DE;
+  --rust:#B4611A;  --rust-lite:#FBEFE0;  --rust-bright:#E8A03C;
+  --hue:var(--blue); --hue-lite:#E7ECFB;
+  --disp:"Archivo","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --mono:"IBM Plex Mono","Noto Sans TC",ui-monospace,Menlo,monospace;
+  --side:296px; --top:62px;
+}
+[data-view="a"]{ --hue:var(--teal); --hue-lite:var(--teal-lite); }
+[data-view="b"]{ --hue:var(--rust); --hue-lite:var(--rust-lite); }
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+body{
+  margin:0; background:var(--paper); color:var(--txt);
+  font-family:var(--body); font-size:15px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{ color:var(--hue); text-decoration:none; }
+a:hover{ text-decoration:underline; text-underline-offset:3px; }
+:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; border-radius:4px; }
+h1,h2,h3{ font-family:var(--disp); font-weight:700; line-height:1.2; margin:0; letter-spacing:-.01em; }
+
+/* ---------- 頂列 ---------- */
+.topbar{
+  position:fixed; inset:0 0 auto 0; height:var(--top); z-index:60;
+  background:rgba(235,238,242,.88); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 26px; gap:20px;
+}
+.logo{ display:flex; align-items:center; gap:11px; min-width:0; }
+.logo .mark{
+  width:32px; height:32px; border-radius:9px; background:var(--ink);
+  display:grid; place-items:center; color:var(--gold);
+  font-family:var(--mono); font-size:13px; font-weight:600; flex-shrink:0;
+}
+.logo b{ font-family:var(--disp); font-size:15.5px; font-weight:700; white-space:nowrap; }
+.xp{ display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.xp .val{ font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--gold); }
+.xp .bar{ width:132px; height:8px; background:var(--line); border-radius:99px; overflow:hidden; }
+.xp .bar i{ display:block; height:100%; width:0; background:var(--gold); border-radius:99px; transition:width .4s ease; }
+.xp .cnt{ font-family:var(--mono); font-size:12.5px; color:var(--dim); }
+@media (max-width:640px){ .xp .bar{ width:70px; } .logo b{ display:none; } }
+
+/* ---------- 側欄學習路徑 ---------- */
+.route{
+  position:fixed; top:var(--top); left:0; bottom:0; width:var(--side); z-index:50;
+  background:var(--paper-2); border-right:1px solid var(--line);
+  overflow-y:auto; padding:22px 16px 60px;
+}
+.route::-webkit-scrollbar{ width:8px; }
+.route::-webkit-scrollbar-thumb{ background:var(--line); border-radius:99px; }
+.route .cap{
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--dim-2); padding:0 10px; margin-bottom:12px;
+}
+.r-home{
+  display:block; padding:11px 14px; border-radius:11px; margin-bottom:18px;
+  background:var(--white); border:1px solid var(--line); color:var(--txt);
+  font-weight:500; font-size:14px;
+}
+.r-home[aria-current="page"]{ background:var(--ink); color:var(--white); border-color:var(--ink); }
+.r-home:hover{ text-decoration:none; }
+.r-group{
+  display:flex; align-items:center; gap:9px; padding:14px 10px 9px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--dim);
+}
+.r-group i{ width:9px; height:9px; border-radius:3px; flex-shrink:0; }
+.r-item{
+  display:flex; gap:11px; align-items:flex-start; width:100%; text-align:left;
+  padding:8px 10px; border-radius:10px; border:0; background:transparent;
+  cursor:pointer; font-family:var(--body); color:var(--txt);
+  font-size:12.8px; line-height:1.5; transition:background .15s ease;
+}
+.r-item:hover{ background:var(--white); }
+.r-item.on{ background:var(--white); box-shadow:inset 2px 0 0 var(--hue); }
+.r-num{
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  border:1px solid var(--line); display:grid; place-items:center;
+  font-family:var(--mono); font-size:11px; color:var(--dim);
+  font-variant-numeric:tabular-nums; margin-top:1px; transition:.15s ease;
+}
+.r-item[data-done="1"] .r-num{ background:var(--ink); border-color:var(--ink); color:var(--gold); }
+.r-item[data-done="1"] .r-txt{ color:var(--dim); }
+.r-txt{ min-width:0; }
+.r-txt b{ display:block; font-weight:500; }
+.r-txt span{ font-family:var(--mono); font-size:10px; color:var(--dim-2); letter-spacing:.05em; }
+
+.routebtn{ display:none; }
+@media (max-width:1040px){
+  .route{ transform:translateX(-100%); transition:transform .25s ease; box-shadow:0 0 40px rgba(20,28,40,.18); }
+  .route.open{ transform:none; }
+  .routebtn{
+    display:grid; place-items:center; width:36px; height:36px; flex-shrink:0;
+    border:1px solid var(--line); border-radius:10px; background:var(--white); cursor:pointer;
+  }
+  .routebtn span{ display:block; width:15px; height:1.6px; background:var(--txt); box-shadow:0 5px 0 var(--txt),0 -5px 0 var(--txt); }
+}
+
+/* ---------- 主區 ---------- */
+main{ margin-left:var(--side); padding:calc(var(--top) + 30px) 34px 96px; }
+@media (max-width:1040px){ main{ margin-left:0; padding-left:20px; padding-right:20px; } }
+.wrap{ max-width:1000px; margin:0 auto; }
+
+/* ---------- 深色卡片（招牌元件） ---------- */
+.slab{
+  background:var(--ink); color:#EDF1F6; border-radius:24px;
+  padding:52px 48px; position:relative; overflow:hidden;
+}
+@media (max-width:640px){ .slab{ padding:34px 24px; border-radius:18px; } }
+.slab .eyebrow{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.24em;
+  text-transform:uppercase; color:#7E90A8; margin-bottom:22px;
+}
+.slab h1{
+  font-size:clamp(30px,4.4vw,54px); line-height:1.28; color:#fff;
+  font-family:var(--disp); font-weight:700;
+}
+.slab h1 .g{ color:var(--gold); }
+.slab .lede{ margin:26px 0 0; max-width:60ch; color:#AFBCCC; font-size:15px; }
+.cta{ display:flex; flex-wrap:wrap; gap:11px; margin-top:30px; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 22px; border-radius:99px; font-size:14px; font-weight:500;
+  border:1px solid rgba(255,255,255,.24); color:#EDF1F6; background:transparent;
+  cursor:pointer; font-family:var(--body); transition:.16s ease;
+}
+.btn:hover{ background:rgba(255,255,255,.09); text-decoration:none; }
+.btn.solid{ background:var(--gold); border-color:var(--gold); color:var(--ink); font-weight:700; }
+.btn.solid:hover{ filter:brightness(1.06); }
+
+.plate{ margin-top:38px; border-top:1px solid rgba(255,255,255,.12); padding-top:26px; }
+.plate svg{ display:block; width:100%; height:auto; }
+.plate .cap{
+  display:flex; gap:18px; justify-content:space-between; flex-wrap:wrap; margin-top:14px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#6F819A; text-transform:uppercase;
+}
+
+/* ---------- 統計四格 ---------- */
+.stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0; }
+@media (max-width:760px){ .stats{ grid-template-columns:repeat(2,1fr); } }
+.stat{ background:var(--white); border:1px solid var(--line); border-radius:16px; padding:22px 20px; }
+.stat b{ display:block; font-family:var(--disp); font-size:38px; font-weight:700; line-height:1; letter-spacing:-.02em; }
+.stat span{ font-family:var(--mono); font-size:11px; color:var(--dim); letter-spacing:.05em; }
+.stat.hi b{ color:var(--gold); }
+
+/* ---------- 軌道卡 ---------- */
+.tcards{ display:grid; gap:14px; margin:22px 0 34px; }
+@media (min-width:860px){ .tcards{ grid-template-columns:1fr 1fr; } }
+.tcard{
+  background:var(--white); border:1px solid var(--line); border-radius:20px;
+  padding:28px 26px; display:flex; flex-direction:column; gap:12px;
+  cursor:pointer; text-align:left; font-family:var(--body); color:var(--txt);
+  transition:.18s ease;
+}
+.tcard:hover{ border-color:var(--ac); box-shadow:0 8px 26px rgba(20,28,40,.07); transform:translateY(-2px); }
+.tcard .code{
+  width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
+  background:var(--acl); color:var(--ac); font-family:var(--disp); font-size:20px; font-weight:700;
+}
+.tcard h2{ font-size:21px; }
+.tcard .lat{ font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--dim-2); }
+.tcard p{ margin:0; color:var(--dim); font-size:14px; }
+.tcard .foot{
+  display:flex; gap:16px; flex-wrap:wrap; margin-top:auto; padding-top:16px;
+  border-top:1px solid var(--line-2); font-family:var(--mono); font-size:11px; color:var(--dim-2);
+}
+.tcard .foot b{ color:var(--txt); font-weight:600; }
+.tcard .go{ font-family:var(--mono); font-size:12px; color:var(--ac); letter-spacing:.06em; }
+
+/* ---------- 內容區塊 ---------- */
+.band{ background:var(--white); border:1px solid var(--line); border-radius:20px; padding:32px 30px; margin-bottom:14px; }
+.band h2{ font-size:20px; margin-bottom:6px; }
+.band .eyebrow{ font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim-2); margin-bottom:8px; }
+.band ul{ list-style:none; padding:0; margin:20px 0 0; display:grid; gap:14px; }
+.band li{ padding-left:18px; border-left:2px solid var(--line); color:var(--dim); font-size:14.5px; }
+.band li b{ color:var(--txt); font-weight:700; }
+.band code{ font-family:var(--mono); font-size:12.5px; background:var(--paper); padding:2px 6px; border-radius:5px; color:var(--txt); }
+
+/* ---------- 軌道頁：年代導軌 ---------- */
+.railbox{
+  background:var(--white); border:1px solid var(--line); border-radius:16px;
+  padding:14px 22px 8px; margin:16px 0;
+}
+.rail{ position:relative; height:66px; }
+.rail-ax{ position:absolute; left:0; right:0; top:42px; height:1px; background:var(--line); }
+.rail-dec{ position:absolute; top:42px; width:1px; height:5px; background:var(--line); }
+.rail-dec span{ position:absolute; top:8px; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:9.5px; color:var(--dim-2); }
+.rail-t{
+  position:absolute; top:22px; width:2px; height:20px; border:0; padding:0;
+  background:var(--hue); opacity:.4; cursor:pointer; transition:.15s ease;
+}
+.rail-t:hover,.rail-t:focus-visible{ opacity:1; height:28px; top:14px; }
+.rail-t[data-done="1"]{ background:var(--ink); opacity:.85; }
+.rail-t .tip{
+  position:absolute; bottom:24px; left:50%; transform:translateX(-50%); white-space:nowrap;
+  background:var(--ink); color:#fff; padding:3px 9px; border-radius:6px;
+  font-family:var(--mono); font-size:10px; opacity:0; pointer-events:none; transition:opacity .12s;
+}
+.rail-t:hover .tip,.rail-t:focus-visible .tip{ opacity:1; }
+
+/* ---------- 篩選 ---------- */
+.filters{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:16px 0 18px; }
+.filters .lab{ font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--dim-2); margin-right:2px; }
+.chip{
+  font-family:var(--mono); font-size:11.5px; padding:6px 13px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--dim); cursor:pointer; transition:.15s;
+}
+.chip:hover{ border-color:var(--dim-2); color:var(--txt); }
+.chip[aria-pressed="true"]{ background:var(--hue); border-color:var(--hue); color:#fff; font-weight:600; }
+.srch{
+  flex:1 1 190px; min-width:150px; padding:8px 14px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--txt);
+  font-family:var(--mono); font-size:12px;
+}
+
+/* ---------- 文獻卡 ---------- */
+.cards{ display:grid; gap:12px; }
+.card{
+  background:var(--white); border:1px solid var(--line); border-radius:18px;
+  padding:26px 26px 22px; scroll-margin-top:88px; transition:.18s ease;
+}
+.card:hover{ box-shadow:0 6px 22px rgba(20,28,40,.06); }
+.card[data-done="1"]{ background:var(--paper-2); }
+.card-top{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.c-num{
+  width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
+  background:var(--hue-lite); color:var(--hue); font-family:var(--mono); font-size:12px; font-weight:600;
+}
+.card[data-done="1"] .c-num{ background:var(--ink); color:var(--gold); }
+.c-id{ font-family:var(--mono); font-size:11px; color:var(--dim-2); letter-spacing:.08em; }
+.tag{ font-family:var(--mono); font-size:10.5px; padding:3px 9px; border-radius:99px; background:var(--paper); color:var(--dim); }
+.tag.warn{ background:#FDECEA; color:#B3341F; }
+.card h3{ font-size:17.5px; line-height:1.42; font-weight:600; margin-bottom:7px; }
+.meta{ font-family:var(--mono); font-size:11.5px; color:var(--dim); line-height:1.75; }
+.meta .vn{ color:var(--dim-2); }
+.q{
+  margin-top:18px; padding:15px 18px; border-radius:12px;
+  background:var(--hue-lite); border-left:3px solid var(--hue); font-size:15px; line-height:1.7;
+}
+.q .l{ display:block; font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); margin-bottom:5px; }
+.contrib{ margin-top:14px; font-size:14.5px; color:var(--dim); }
+.contrib .l{ display:block; font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim-2); margin-bottom:3px; }
+.contrib.todo{ font-style:italic; color:var(--dim-2); }
+.card .nb{ margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font-family:var(--mono); font-size:11.5px; line-height:1.7; color:var(--dim-2); }
+.card-foot{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:18px; }
+.done{
+  font-family:var(--mono); font-size:11.5px; padding:7px 15px; border-radius:99px;
+  border:1px solid var(--line); background:var(--white); color:var(--dim); cursor:pointer; transition:.15s;
+}
+.done:hover{ border-color:var(--dim-2); color:var(--txt); }
+.done[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:var(--gold); }
+.pg{ font-family:var(--mono); font-size:11px; color:var(--dim-2); }
+.empty{ background:var(--white); border:1px solid var(--line); border-radius:18px; padding:46px; text-align:center; font-family:var(--mono); font-size:13px; color:var(--dim-2); }
+
+footer{ margin-top:34px; font-family:var(--mono); font-size:11px; color:var(--dim-2); line-height:1.9; }
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{ animation:rise .42s ease both; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+}
+</style>
 </head>
 <body>
 
-<header class="masthead">
-  <div class="shell">
-    <div class="brand"><span class="tick"></span><b>高速流場文獻導引</b></div>
-    <nav class="mast-nav">
-      <a href="index.html" aria-current="page">總覽</a>
-      <a href="track-a.html">軌道 A</a>
-      <a href="track-b.html">軌道 B</a>
-    </nav>
+<div class="topbar">
+  <div class="logo">
+    <button class="routebtn" id="routebtn" aria-label="開關學習路徑"><span></span></button>
+    <span class="mark">HS</span>
+    <b>高速流場文獻導引</b>
   </div>
-</header>
+  <div class="xp">
+    <span class="val" id="xpv">0 XP</span>
+    <div class="bar"><i id="xpb"></i></div>
+    <span class="cnt" id="xpc">0/0</span>
+  </div>
+</div>
 
-<main>
+<aside class="route" id="route">
+  <p class="cap">Learning route</p>
+  <a class="r-home" href="#/" id="rhome">課程總覽</a>
+  <div id="rlist"></div>
+</aside>
 
-<section class="hero shell fade">
-  <p class="eyebrow">Compressible Flow · Reading Route · 01</p>
-  <h1 class="hero-thesis">別只問「模型對不對」
-    <em>要問這個數字是在哪一種量測情境下產生的。</em>
-  </h1>
-  <p class="hero-sub">
-    兩條路線，兩種截然不同的知識形態。左邊是非穩態的、設施相依的、必須靠診斷技術才能定義的量；
-    右邊是一條常微分方程與它九十年來的近似解族譜。把它們放在同一個站裡，是因為現代超燃衝壓與乘波體設計同時需要兩者。
-  </p>
+<main><div class="wrap" id="main"></div></main>
 
-  <div class="plate">
-    <svg viewBox="0 0 1120 340" role="img" aria-label="左：凹槽上方的非穩態剪切層與聲學回饋迴路；右：圓錐上的附體錐形震波與自相似射線。">
-      <defs>
-        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-          <path d="M0 0 L10 5 L0 10 z" fill="#939DAC"/>
-        </marker>
-        <marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-          <path d="M0 0 L10 5 L0 10 z" fill="#4FC6DE"/>
-        </marker>
-        <linearGradient id="fadeC" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#4FC6DE" stop-opacity=".15"/>
-          <stop offset="1" stop-color="#4FC6DE" stop-opacity=".55"/>
-        </linearGradient>
-      </defs>
+<script>
+/* ===================================================================
+   ▼▼▼ 文獻資料庫：要新增文獻就改這裡（LIBRARY 陣列） ▼▼▼
+   =================================================================== */
 
-      <!-- ============ 左：剪切層 / 凹槽 ============ -->
-      <g font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.4">
-        <text x="46" y="34" fill="#5F6875">A · UNSTEADY</text>
-      </g>
-      <!-- 自由流 -->
-      <g stroke="#5F6875" stroke-width="1" marker-end="url(#ar)" opacity=".8">
-        <line x1="46" y1="86" x2="128" y2="86"/>
-        <line x1="46" y1="112" x2="128" y2="112"/>
-        <line x1="46" y1="138" x2="128" y2="138"/>
-      </g>
-      <text x="46" y="72" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5F6875">M∞ &gt; 1</text>
+const LIBRARY = [
 
-      <!-- 壁面與凹槽 -->
-      <path d="M60 170 H210 V252 H352 V170 H524" fill="none" stroke="#ECE7DB" stroke-width="1.6"/>
-      <path d="M210 170 H352 V252 H210 Z" fill="#4FC6DE" opacity=".045"/>
+  /* ============ 軌道 A：超音速剪切層與凹槽流場 ============ */
 
-      <!-- 剪切層：厚度沿流向成長 -->
-      <path d="M210 170 C238 156, 252 186, 280 170 C308 152, 326 192, 352 172"
-            fill="none" stroke="url(#fadeC)" stroke-width="9" stroke-linecap="round"/>
-      <path d="M210 170 C238 156, 252 186, 280 170 C308 152, 326 192, 352 172"
-            fill="none" stroke="#4FC6DE" stroke-width="1.3"/>
-      <!-- 渦捲 -->
-      <g fill="none" stroke="#4FC6DE" stroke-width="1.1" opacity=".85">
-        <path d="M252 172 a7 7 0 1 1 -5 -7"/>
-        <path d="M300 168 a10 10 0 1 1 -7 -9.6"/>
-        <path d="M340 174 a13 13 0 1 1 -9.5 -12.4"/>
-      </g>
-      <!-- 尾緣撞擊 + 聲學回饋 -->
-      <circle cx="352" cy="171" r="3" fill="#ECE7DB"/>
-      <path d="M348 186 C300 232, 250 232, 214 190" fill="none" stroke="#4FC6DE"
-            stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#arC)" opacity=".9"/>
-      <text x="252" y="228" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4FC6DE">聲波回饋</text>
+  /* --- A1 可壓縮剪切層：壓縮性抑制混合 --- */
+  {
+    id: "A-01", track: "A", year: 1974, method: "實驗", topic: "自由剪切層",
+    title: "On density effects and large structure in turbulent mixing layers",
+    authors: "Brown, G.L.; Roshko, A.",
+    venue: "J. Fluid Mech. 64(4), 775–816",
+    doi: "10.1017/S002211207400190X",
+    question: "混合層的成長，究竟被密度比控制，還是被大尺度結構的配對過程控制？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "unverified",
+    note: "本站作者未逐項核對卷期頁碼，請自行對照 Cambridge Core 後改為 verified。"
+  },
+  {
+    id: "A-02", track: "A", year: 1988, method: "實驗", topic: "自由剪切層",
+    title: "The compressible turbulent shear layer: an experimental study",
+    authors: "Papamoschou, D.; Roshko, A.",
+    venue: "J. Fluid Mech. 197, 453–477",
+    doi: "10.1017/S0022112088003325",
+    question: "「成長率下降」是壓縮性本身造成的，還是厚度定義（Pitot 剖面 vs 視覺邊界）造成的？",
+    contribution: "提出對流馬赫數 Mc 作為壓縮性效應參數，並指出正規化成長率隨 Mc 迅速下降，在超音速對流馬赫數下趨於約 0.2 的漸近值。實驗涵蓋十種氣體/馬赫數組合，自由流馬赫數 0.2–4。",
+    pages: null,
+    biblioCheck: "verified",
+    note: "本領域的座標原點。任何談 Mc 的文章都要能說出這篇的量測方法限制。"
+  },
+  {
+    id: "A-03", track: "A", year: 1989, method: "理論", topic: "線性穩定性",
+    title: "Linear instabilities in two-dimensional compressible mixing layers",
+    authors: "Ragab, S.A.; Wu, J.L.",
+    venue: "Phys. Fluids A 1, 957–966",
+    doi: null,
+    question: "線性穩定性預測的最不穩定模態，在完全發展的亂流剪切層中還剩多少解釋力？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-04", track: "A", year: 1990, method: "實驗", topic: "自由剪切層",
+    title: "Compressibility effects in free shear layers",
+    authors: "Elliott, G.S.; Samimy, M.",
+    venue: "Phys. Fluids A 2, 1231–1240",
+    doi: null,
+    question: "亂流強度隨 Mc 的下降，與成長率下降是同一件事，還是兩個獨立現象？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-05", track: "A", year: 1991, method: "實驗", topic: "自由剪切層",
+    title: "Experimental study of compressible turbulent mixing layers",
+    authors: "Goebel, S.G.; Dutton, J.C.",
+    venue: "AIAA J. 29(4), 538–546",
+    doi: "10.2514/3.10617",
+    question: "LDV 量到的雷諾應力各向異性，能不能只靠 Mc 一個參數收斂？",
+    contribution: "以壓力量測、紋影攝影與雷射都卜勒測速合併研究可壓縮亂流混合層。後續文獻指出此組數據顯示縱向速度擾動隨馬赫數上升時近乎不變，而橫向擾動與剪應力強度下降。",
+    pages: null,
+    biblioCheck: "verified",
+    note: "與 Barre 等人的數據在雷諾應力各向異性上有分歧，是這條線索的關鍵爭點。"
+  },
+  {
+    id: "A-06", track: "A", year: 1991, method: "數值", topic: "DNS/LES",
+    title: "Three-dimensional simulations of large eddies in the compressible mixing layer",
+    authors: "Sandham, N.D.; Reynolds, W.C.",
+    venue: "J. Fluid Mech. 224, 133–158",
+    doi: "10.1017/S0022112091001719",
+    question: "二維渦捲在什麼條件下被三維斜模態取代？門檻由 Mc 決定還是由初始擾動決定？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-07", track: "A", year: 1993, method: "實驗", topic: "自由剪切層",
+    title: "Experiments in nonreacting compressible shear layers",
+    authors: "Hall, J.L.; Dimotakis, P.E.; Rosemann, H.",
+    venue: "AIAA J. 31(12), 2247–2254",
+    doi: "10.2514/3.11922",
+    question: "不同風洞之間的成長率差異，有多少來自初始條件而非壓縮性？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-08", track: "A", year: 1995, method: "實驗", topic: "大尺度結構",
+    title: "Large-scale structure and entrainment in the supersonic mixing layer",
+    authors: "Clemens, N.T.; Mungal, M.G.",
+    venue: "J. Fluid Mech. 284, 171–216",
+    doi: "10.1017/S0022112095000310",
+    question: "高 Mc 下「大尺度結構消失」是物理事實，還是可視化技術的解析極限？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-09", track: "A", year: 1996, method: "數值", topic: "DNS/LES",
+    title: "Compressible mixing layer growth rate and turbulence characteristics",
+    authors: "Vreman, A.W.; Sandham, N.D.; Luo, K.H.",
+    venue: "J. Fluid Mech. 320, 235–258",
+    doi: "10.1017/S0022112096007525",
+    question: "若壓縮性不是透過膨脹耗散起作用，抑制機制究竟落在能量收支的哪一項？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-10", track: "A", year: 2001, method: "實驗", topic: "自由剪切層",
+    title: "Planar velocity measurements in compressible mixing layers",
+    authors: "Urban, W.D.; Mungal, M.G.",
+    venue: "J. Fluid Mech. 431, 189–222",
+    doi: "10.1017/S0022112000003177",
+    question: "平面 PIV 給出的速度場，與 1980–90 年代的 Pitot／LDV 成長率是否自洽？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-11", track: "A", year: 2002, method: "數值", topic: "DNS/LES",
+    title: "A study of compressibility effects in the high-speed turbulent shear layer using direct simulation",
+    authors: "Pantano, C.; Sarkar, S.",
+    venue: "J. Fluid Mech. 451, 329–371",
+    doi: "10.1017/S0022112001006978",
+    question: "DNS 能否把「壓力-應變項下降」與「膨脹耗散」兩種解釋分離開來？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: "這篇常被引用來反駁「膨脹耗散是主因」的舊觀點，值得逐項讀能量收支。"
+  },
 
-      <!-- 回饋造成的壓力振盪波形 -->
-      <path d="M60 300 q12 -18 24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0"
-            fill="none" stroke="#4FC6DE" stroke-width="1" opacity=".45"/>
-      <text x="60" y="322" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5F6875" letter-spacing="1.2">
-        ROSSITER MODES · f(n)</text>
-      <text x="216" y="163" font-family="IBM Plex Mono, monospace" font-size="10" fill="#939DAC">L</text>
-      <text x="358" y="215" font-family="IBM Plex Mono, monospace" font-size="10" fill="#939DAC">D</text>
+  /* --- A2 凹槽流場：回饋振盪 --- */
+  {
+    id: "A-12", track: "A", year: 1964, method: "實驗", topic: "凹槽振盪",
+    title: "Wind-tunnel experiments on the flow over rectangular cavities at subsonic and transonic speeds",
+    authors: "Rossiter, J.E.",
+    venue: "Aeronautical Research Council R&M No. 3438",
+    doi: null,
+    question: "半經驗常數 κ（渦對流速度比）與 α（相位延遲）外推到超音速時，還有物理意義嗎？",
+    contribution: "假設凹槽內聲速固定、剪切層渦的對流速度不變，據此提出以回饋機制為基礎的半經驗共振頻率公式。",
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-13", track: "A", year: 1971, method: "實驗", topic: "凹槽振盪",
+    title: "Flow-induced pressure oscillations in shallow cavities",
+    authors: "Heller, H.H.; Holmes, D.G.; Covert, E.E.",
+    venue: "J. Sound Vib. 18(4), 545–553",
+    doi: "10.1016/0022-460X(71)90105-2",
+    question: "把凹槽內聲速改為自由流停滯溫度對應值之後，殘餘的預測誤差屬於哪個機制？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-14", track: "A", year: 1975, method: "理論", topic: "凹槽振盪",
+    title: "Aerodynamically induced pressure oscillations in cavities: physical mechanisms and suppression concepts",
+    authors: "Heller, H.H.; Bliss, D.B.",
+    venue: "AFFDL-TR-74-133, U.S. Air Force Flight Dynamics Laboratory",
+    doi: null,
+    question: "抑制概念是真的切斷了回饋迴路，還是只改變了剪切層對尾緣的撞擊角？",
+    contribution: "修正 Rossiter 半經驗公式以描述超音速凹槽流場。",
+    pages: null,
+    biblioCheck: "conflict",
+    note: "同一份工作在文獻中有兩種引用：AFFDL-TR-74-133 (1975) 與 AIAA Paper 75-491 (1975)，標題略有不同。引用前請先確定你要指的是哪一份。"
+  },
+  {
+    id: "A-15", track: "A", year: 1978, method: "綜述", topic: "凹槽振盪",
+    title: "Review — Self-sustaining oscillations of flow past cavities",
+    authors: "Rockwell, D.; Naudascher, E.",
+    venue: "J. Fluids Eng. 100(2), 152–165",
+    doi: "10.1115/1.3448624",
+    question: "fluid-dynamic / fluid-resonant / fluid-elastic 三分類，會不會在同一個流場中同時存在？",
+    contribution: "將凹槽振盪分為三類：流體動力型（剪切層不穩定主導）、流體共振型（與腔內聲波共振耦合）、流固彈性型。",
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-16", track: "A", year: 2011, method: "綜述", topic: "凹槽振盪",
+    title: "Review of numerical simulations for high-speed, turbulent cavity flows",
+    authors: "Lawson, S.J.; Barakos, G.N.",
+    venue: "Prog. Aerosp. Sci.",
+    doi: null,
+    question: "URANS、DES 與 LES 在預測凹槽壓力頻譜上的差異，是模式問題還是網格問題？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "unverified",
+    note: "卷期頁碼未核。此篇在多份文獻中被引為高速凹槽數值模擬的標準綜述。"
+  },
+  {
+    id: "A-17", track: "A", year: 2017, method: "數值", topic: "全域穩定性",
+    title: "Biglobal instabilities of compressible open-cavity flows",
+    authors: "Sun, Y.; 等",
+    venue: "J. Fluid Mech.",
+    doi: null,
+    question: "全域穩定性分析找到的模態，能不能一對一對應到實驗量到的 Rossiter 峰？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "unverified",
+    note: "作者群與卷期頁碼待補。可從 sunlab.syr.edu 的 PDF 取得完整書目。"
+  },
 
-      <!-- ============ 刀口 ============ -->
-      <line x1="560" y1="24" x2="560" y2="316" stroke="#313846" stroke-width="1"/>
-      <circle cx="560" cy="170" r="3.5" fill="#14171C" stroke="#313846"/>
+  /* --- A3 凹槽作為超燃衝壓穩焰器 --- */
+  {
+    id: "A-18", track: "A", year: 2001, method: "綜述", topic: "超燃衝壓穩焰",
+    title: "Cavity flame-holders for ignition and flame stabilization in scramjets: an overview",
+    authors: "Ben-Yakar, A.; Hanson, R.K.",
+    venue: "J. Propuls. Power 17(4), 869–877",
+    doi: "10.2514/2.5818",
+    question: "凹槽穩焰的駐留時間優勢，與它造成的總壓損失如何權衡？",
+    contribution: "綜整超燃衝壓社群當時的凹槽穩焰研究，指出凹槽因飛行試驗與實驗室尺度燃燒室的成果而受到重視，但仍缺乏系統性研究來決定「損失最小、穩焰最有效」的最佳構型。",
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-19", track: "A", year: 2001, method: "實驗", topic: "超燃衝壓穩焰",
+    title: "Fundamental studies of cavity-based flameholder concepts for supersonic combustors",
+    authors: "Gruber, M.R.; Baurle, R.A.; Mathur, T.; Hsu, K.-Y.",
+    venue: "J. Propuls. Power 17(1), 146–153",
+    doi: "10.2514/2.5720",
+    question: "非反應流下建立的 open/closed 凹槽分類，能直接套用到有燃燒的情況嗎？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-20", track: "A", year: 2001, method: "實驗", topic: "超燃衝壓穩焰",
+    title: "Supersonic combustion experiments with a cavity-based fuel injector",
+    authors: "Mathur, T.; Gruber, M.; Jackson, K.; Donbar, J.; Donaldson, W.; Jackson, T.; Billig, F.",
+    venue: "J. Propuls. Power 17(6), 1305–1312",
+    doi: null,
+    question: "直連式（direct-connect）試驗量到的性能，有多少可以外推到真實飛行條件？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-21", track: "A", year: 2004, method: "實驗", topic: "超燃衝壓穩焰",
+    title: "Mixing and combustion studies using cavity-based flameholders in a supersonic flow",
+    authors: "Gruber, M.R.; Donbar, J.M.; Carter, C.D.; Hsu, K.-Y.",
+    venue: "J. Propuls. Power 20(5), 769–778",
+    doi: "10.2514/1.5360",
+    question: "混合增強與火焰穩定，是否要求互相衝突的凹槽幾何？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-22", track: "A", year: 2009, method: "實驗", topic: "超燃衝壓穩焰",
+    title: "Combustion characteristics of a dual-mode scramjet combustor with cavity flameholder",
+    authors: "Micka, D.J.; Driscoll, J.F.",
+    venue: "Proc. Combust. Inst. 32(2), 2397–2404",
+    doi: null,
+    question: "雙模態燃燒室的兩個穩焰位置之間，由哪一個參數決定切換？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "A-23", track: "A", year: 2014, method: "綜述", topic: "超燃衝壓穩焰",
+    title: "Review of cavity-stabilized combustion for scramjet applications",
+    authors: "Wang, Z.; Wang, H.; Sun, M.",
+    venue: "Proc. IMechE Part G: J. Aerosp. Eng.",
+    doi: "10.1177/0954410014521172",
+    question: "過去二十年的凹槽穩焰結論，哪些是普適的、哪些是設施相依的？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: "卷期頁碼待補（DOI 已核）。"
+  },
 
-      <!-- ============ 右：錐形流 ============ -->
-      <g font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.4">
-        <text x="1074" y="34" fill="#5F6875" text-anchor="end">B · SELF-SIMILAR</text>
-      </g>
-      <g stroke="#5F6875" stroke-width="1" marker-end="url(#ar)" opacity=".8">
-        <line x1="596" y1="120" x2="654" y2="120"/>
-        <line x1="596" y1="168" x2="654" y2="168"/>
-        <line x1="596" y1="216" x2="654" y2="216"/>
-      </g>
+  /* ============ 軌道 B：Taylor–Maccoll 三維錐流理論解 ============ */
 
-      <!-- 對稱軸 -->
-      <line x1="620" y1="288" x2="1078" y2="288" stroke="#313846" stroke-width="1" stroke-dasharray="9 5"/>
-      <!-- 錐面 -->
-      <path d="M660 288 L1060 173 L1060 288 Z" fill="#E8A03C" opacity=".07"/>
-      <path d="M660 288 L1060 173" fill="none" stroke="#ECE7DB" stroke-width="1.6"/>
-      <!-- 錐形震波 -->
-      <path d="M660 288 L1060 57" fill="none" stroke="#E8A03C" stroke-width="1.8"/>
-      <!-- 自相似射線：沿每條射線物理量固定 -->
-      <g stroke="#E8A03C" stroke-width=".9" opacity=".38">
-        <line x1="660" y1="288" x2="1060" y2="86"/>
-        <line x1="660" y1="288" x2="1060" y2="108"/>
-        <line x1="660" y1="288" x2="1060" y2="130"/>
-        <line x1="660" y1="288" x2="1060" y2="152"/>
-      </g>
-      <!-- 角度弧 -->
-      <path d="M760 288 A100 100 0 0 0 754 260" fill="none" stroke="#ECE7DB" stroke-width="1" opacity=".7"/>
-      <text x="768" y="278" font-family="IBM Plex Mono, monospace" font-size="11" fill="#ECE7DB">θc</text>
-      <path d="M820 288 A160 160 0 0 0 800 196" fill="none" stroke="#E8A03C" stroke-width="1" opacity=".8"/>
-      <text x="828" y="248" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E8A03C">β</text>
-      <text x="884" y="122" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5F6875" letter-spacing="1.1">
-        沿射線 · 物理量固定</text>
-      <text x="1074" y="322" font-family="IBM Plex Mono, monospace" font-size="10"
-            fill="#5F6875" text-anchor="end" letter-spacing="1.2">TAYLOR–MACCOLL ODE</text>
-    </svg>
-    <div class="plate-cap">
-      <span>左：回饋迴路決定頻率，量測情境決定數字</span>
-      <span>右：一條 ODE 決定整個流場</span>
+  /* --- B1 奠基 --- */
+  {
+    id: "B-01", track: "B", year: 1933, method: "理論", topic: "奠基理論",
+    title: "The air pressure on a cone moving at high speeds. — I",
+    authors: "Taylor, G.I.; Maccoll, J.W.",
+    venue: "Proc. R. Soc. Lond. A 139(838), 278–297",
+    doi: "10.1098/rspa.1933.0017",
+    question: "把三維錐流化約成單變數常微分方程，代價是放棄了哪些物理？",
+    contribution: "建立計算錐體附近氣流與壓力的方法，並對半頂角 10°、20°、30° 的圓錐完成數值計算。作者明言計算僅針對無限長錐，但推測其結果可比擬有限錐或錐頭彈丸鼻部附近的流場。",
+    pages: null,
+    biblioCheck: "conflict",
+    note: "頁碼有兩種記載：Royal Society 官方頁面為 278–297（Part II 為 298–311）；部分二次文獻寫成 278–311，等於把兩部分合併。引用時以出版社為準。"
+  },
+  {
+    id: "B-02", track: "B", year: 1933, method: "理論", topic: "奠基理論",
+    title: "The air pressure on a cone moving at high speeds. — II",
+    authors: "Taylor, G.I.; Maccoll, J.W.",
+    venue: "Proc. R. Soc. Lond. A 139(838), 298–311",
+    doi: "10.1098/rspa.1933.0018",
+    question: "1933 年的數值積分與彈道攝影比對，殘差主要來自理論假設還是量測誤差？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-03", track: "B", year: 1937, method: "理論", topic: "奠基理論",
+    title: "The conical shock wave formed by a cone moving at a high speed",
+    authors: "Maccoll, J.W.",
+    venue: "Proc. R. Soc. Lond. A 159, 459–472",
+    doi: "10.1098/rspa.1937.0083",
+    question: "震波角的弱解與強解之中，真實流場選擇哪一支？判準是什麼？",
+    contribution: "延續 1933 年的工作。摘要中回顧前作：錐體表面壓力已由高速風洞量測、以及錐頭彈丸的飛行攝影驗證，兩者與理論吻合良好。",
+    pages: null,
+    biblioCheck: "conflict",
+    note: "年份有兩種記載：Springer 與 Royal Society DOI 指向 1937；JFM (2024) 的參考文獻列為 1936, 159(898)。DOI rspa.1937.0083 支持 1937。"
+  },
+  {
+    id: "B-04", track: "B", year: 1942, method: "理論", topic: "內收縮流場",
+    title: "Die achsensymmetrische kegelige Überschallströmung（Busemann 內收縮等熵壓縮流場）",
+    authors: "Busemann, A.",
+    venue: "書目待補",
+    doi: null,
+    question: "等熵內收縮壓縮為何能做到「幾乎無震波損失」？代價落在哪裡？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "unverified",
+    note: "年份（1942 或 1944）與出處在二次文獻中不一致，本站作者未取得原文。這是整條軌道最需要你親自查證的一筆。"
+  },
+
+  /* --- B2 表格化與數值解 --- */
+  {
+    id: "B-05", track: "B", year: 1947, method: "表格", topic: "數值表格",
+    title: "Tables of Supersonic Flow Around Cones",
+    authors: "Kopal, Z.",
+    venue: "MIT Center of Analysis, Tech. Rep. No. 1",
+    doi: null,
+    question: "在數值時代，表格化的價值還剩什麼？γ = 1.405 與 1.4 的差異何時會變重要？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-06", track: "B", year: 1964, method: "表格", topic: "數值表格",
+    title: "Tables for Supersonic Flow Around Right Circular Cones at Zero Angle of Attack",
+    authors: "Sims, J.L.",
+    venue: "NASA SP-3004",
+    doi: null,
+    question: "SP-3004 的表格精度，足以作為現代 CFD 求解器的驗證基準嗎？",
+    contribution: "報告本身載明：其數據基於 Kopal 的 MIT 表（Tech. Rep. No. 1, 1947），差異僅在呈現方式，以及比熱比採用 1.4 而非 Kopal 的 1.405。並說明本報告為 NASA SP-3007（小攻角情形）的互補文件。",
+    pages: null,
+    biblioCheck: "verified",
+    note: "這條「Kopal → Sims」的血緣關係，說明兩份表格不是獨立驗證來源。"
+  },
+
+  /* --- B3 近似解與解析結構 --- */
+  {
+    id: "B-07", track: "B", year: 1967, method: "理論", topic: "近似解",
+    title: "On hypersonic flow past an unyawed cone",
+    authors: "Rasmussen, M.L.",
+    venue: "AIAA J. 5, 1495–1497",
+    doi: "10.2514/3.4228",
+    question: "高超音速近似在什麼錐角與馬赫數組合下開始失效？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-08", track: "B", year: 1975, method: "理論", topic: "解析結構",
+    title: "On the analytic structure of the Taylor–Maccoll conical-flow solution",
+    authors: "Schwartz, L.W.",
+    venue: "ZAMP 26, 407–414",
+    doi: "10.1007/BF01590778",
+    question: "解的奇點位置如何反過來限制數值積分的步長與起始條件選擇？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-09", track: "B", year: 1986, method: "理論", topic: "近似解",
+    title: "Constant-density approximation to Taylor–Maccoll solution",
+    authors: "Moorthy, C.S.",
+    venue: "AIAA J. 24, 1561–1563",
+    doi: "10.2514/3.9483",
+    question: "把非線性項在錐面與震波上同時歸零的定密度近似，何時會失效？",
+    contribution: "將 T–M 方程重整，使非線性可集中到單一項，該項在錐面與斜震波上皆為零；忽略此項後，定密度近似在超音速範圍仍有良好精度。並指出震波脫體發生在震波前後密度比達最大值時的震波角。",
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-10", track: "B", year: 2005, method: "理論", topic: "近似解",
+    title: "Taylor–Maccoll hypervelocity analytical solutions",
+    authors: "Ishimatsu, T.; Morishita, E.",
+    venue: "Trans. Jpn. Soc. Aeronaut. Space Sci. 48, 46–48",
+    doi: "10.2322/tjsass.48.46",
+    question: "超高速解析解與完整數值積分的偏差，隨馬赫數如何演化？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-11", track: "B", year: 2019, method: "理論", topic: "近似解",
+    title: "Closed-form approximation for supersonic flow over a cone",
+    authors: "Forbes, L.K.; Hindle, T.J.",
+    venue: "Shock Waves 29(4), 589–593",
+    doi: "10.1007/s00193-018-0879-0",
+    question: "以「窄錐角」假設導出的閉式解，為什麼在大錐角高馬赫數下反而仍然準確？",
+    contribution: "在高速流與窄錐角假設下略作簡化，給出附體錐形震波問題的完整閉式解，並提供震波層內流面的封閉表達式。作者指出隨自由流馬赫數上升，該漸近解對所有錐角皆準確。",
+    pages: null,
+    biblioCheck: "verified",
+    note: "書目已直接向 Springer 頁面核對（卷 29、頁 589–593、2019 年 5 月號）。"
+  },
+
+  /* --- B4 內收縮解與進氣道應用 --- */
+  {
+    id: "B-12", track: "B", year: 1966, method: "理論", topic: "內收縮流場",
+    title: "Busemann inlet for hypersonic speeds",
+    authors: "Mölder, S.; Szpiro, E.J.",
+    venue: "J. Spacecraft Rockets 3(8), 1303–1304",
+    doi: "10.2514/3.28649",
+    question: "Busemann 進氣道的理論壓縮效率，會被啟動（starting）問題吃掉多少？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-13", track: "B", year: 1967, method: "理論", topic: "內收縮流場",
+    title: "Internal, axisymmetric, conical flow",
+    authors: "Mölder, S.",
+    venue: "AIAA J. 5(7), 1252–1255",
+    doi: "10.2514/3.4179",
+    question: "T–M 方程的四組解，是數學上的分支，還是四個物理上都可實現的流場？",
+    contribution: "指出 Taylor–Maccoll 方程共有四組數值解：外錐流、Busemann 流、內錐流 A 型（ICFA）與 B 型（ICFB）。其中 Busemann 流與 ICFA 具有向內轉折的流線；前者以馬赫波起始、以震波終止，後者以震波起始、終止於奇點。",
+    pages: null,
+    biblioCheck: "conflict",
+    note: "頁碼有兩種記載：多數來源（含 JFM 2024 參考文獻）為 1252–1255；另有一份 AIAA 參考文獻寫成 1348–1355。前者為多數且交叉一致，建議採用。"
+  },
+  {
+    id: "B-14", track: "B", year: 1990, method: "理論", topic: "解析結構",
+    title: "On the impossibility of regular reflection of a steady-state shock wave from the axis of symmetry",
+    authors: "Rylov, A.I.",
+    venue: "J. Appl. Math. Mech. 54(2), 201–203",
+    doi: null,
+    question: "震波無法在對稱軸上正規反射，這對內收縮進氣道施加了什麼硬性幾何約束？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-15", track: "B", year: 1994, method: "理論", topic: "真實氣體效應",
+    title: "Thermally perfect, calorically imperfect Taylor–Maccoll flow",
+    authors: "Lampe, D.R.",
+    venue: "PhD thesis, University of Oklahoma",
+    doi: null,
+    question: "熱完全但卡路里不完全氣體的修正，對錐角–震波角關係影響有多大？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: "書目來自 JFM (2024) 參考文獻列表；原文取得管道待確認。"
+  },
+  {
+    id: "B-16", track: "B", year: 2014, method: "理論", topic: "解析結構",
+    title: "Axisymmetric-conical and locally conical flows without swirling",
+    authors: "Kraiko, A.N.; Tillyaeva, N.I.",
+    venue: "J. Appl. Mech. Tech. Phys. 55(2), 282–298",
+    doi: null,
+    question: "「局部錐形流」的適用範圍該如何界定？偏離嚴格錐形時誤差如何累積？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-17", track: "B", year: 2016, method: "數值", topic: "進氣道設計",
+    title: "Inward-turning streamline-traced inlet design method for low-boom, low-drag applications",
+    authors: "Otto, S.E.; Trefny, C.J.; Slater, J.W.",
+    venue: "J. Propuls. Power 32(5), 1178–1189",
+    doi: "10.2514/1.B36028",
+    question: "低音爆需求如何反過來改變 T–M 母流場的選擇？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-18", track: "B", year: 2023, method: "數值", topic: "乘波體設計",
+    title: "Leading-edge cone method for waverider design",
+    authors: "Li, Z.; Jiang, C.; Hu, S.; Lee, C.-H.; Pi, S.",
+    venue: "AIAA J. 61(6), 2331–2346",
+    doi: null,
+    question: "以前緣錐法設計的乘波體，其設計點外性能衰減速度如何？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-19", track: "B", year: 2023, method: "數值", topic: "進氣道設計",
+    title: "New parent flowfield for streamline-traced intakes",
+    authors: "Musa, O.; Huang, G.; Jin, B.; Mölder, S.; Yu, Z.",
+    venue: "AIAA J. 61(7), 2906–2921",
+    doi: "10.2514/1.J062744",
+    question: "新母流場相對 Busemann／ICFA 的優勢，是理論上的還是純工程上的？",
+    contribution: null,
+    pages: null,
+    biblioCheck: "verified",
+    note: null
+  },
+  {
+    id: "B-20", track: "B", year: 2024, method: "理論", topic: "解析結構",
+    title: "Basic solutions to Taylor–Maccoll equations",
+    authors: "Han, T.; Hu, S.; Jiang, C.; Lee, C.-H.",
+    venue: "J. Fluid Mech. 999, A48",
+    doi: "10.1017/jfm.2024.884",
+    question: "新找到的兩組解（IECF、DCF），是否對應到可製造的幾何？",
+    contribution: "重新分析 T–M 方程，釐清所有可能解及其相互關係，將基本解存在的區域劃為四個域。指出經典 Busemann 與 ICFB 解在「震波前域」共用同一個基本解模板，而經典外錐流與 ICFA 屬於外錐流域；並在另兩個域中找出兩組新解：外錐流內流（IECF）與退化錐形流（DCF）。",
+    pages: null,
+    biblioCheck: "verified",
+    note: "1967 年之後對 T–M 解結構最完整的一次重整，是本軌道的終點站。"
+  },
+
+  /* --- B5 教科書與工具（不計入文獻數） --- */
+  {
+    id: "B-T1", track: "B", year: 1957, method: "教科書", topic: "參考書",
+    title: "Elements of Gas Dynamics",
+    authors: "Liepmann, H.W.; Roshko, A.",
+    venue: "Wiley, New York",
+    doi: null,
+    question: "教科書版本的錐流推導省略了哪些步驟？",
+    contribution: null, pages: null, biblioCheck: "verified", note: null
+  },
+  {
+    id: "B-T2", track: "B", year: 1959, method: "教科書", topic: "參考書",
+    title: "Hypersonic Flow Theory",
+    authors: "Hayes, W.D.; Probstein, R.F.",
+    venue: "Academic Press, New York",
+    doi: null,
+    question: "高超音速極限下的相似律，如何與 T–M 解銜接？",
+    contribution: null, pages: null, biblioCheck: "verified", note: null
+  },
+  {
+    id: "B-T3", track: "B", year: 1990, method: "教科書", topic: "參考書",
+    title: "Modern Compressible Flow with Historical Perspective, 2nd ed.",
+    authors: "Anderson, J.D.",
+    venue: "McGraw-Hill, Boston",
+    doi: null,
+    question: "標準教學版的 T–M 數值解法，其起始條件是怎麼給的？",
+    contribution: null, pages: null, biblioCheck: "verified", note: null
+  }
+
+];
+
+/* 軌道設定 —— 想改標題、副標或配色，改這裡 */
+const TRACKS = {
+  A: {
+    code: "A",
+    label: "超音速剪切層與凹槽流場",
+    latin: "SUPERSONIC SHEAR LAYERS & CAVITY FLOWS",
+    thesis: "剪切層決定混合速率，凹槽決定它能不能被鎖住。兩者共用同一條回饋迴路。",
+    long: "剪切層決定混合速率，凹槽決定它能不能被鎖住。兩者共用同一條回饋迴路：不穩定波放大、對流、撞擊尾緣，再以聲波回傳上游。這條路線的核心爭點始終是同一個 —— 你量到的「成長率」或「頻率」，有多少是流場的性質，有多少是量測方式與設施的性質。",
+    file: "track-a.html",
+    hue: "cyan"
+  },
+  B: {
+    code: "B",
+    label: "Taylor–Maccoll 三維錐形流理論解",
+    latin: "TAYLOR–MACCOLL CONICAL FLOW",
+    thesis: "一條常微分方程撐起整個高超音速進氣道與乘波體設計的解析基礎。",
+    long: "錐形自相似把一個三維無黏流場壓成單一自變數的常微分方程。這個化約極為便宜，也極為昂貴 —— 便宜在它給出可積分的精確解，昂貴在它排除了黏性、旋度、攻角與有限長度。這條路線的問題始終是：九十年來的每一次「新解」或「新近似」，是放寬了哪一條假設，又付出什麼代價。",
+    file: "track-b.html",
+    hue: "amber"
+  }
+};
+
+/* ===================================================================
+   ▲▲▲ 資料到此結束。以下是渲染程式，一般不需要修改。 ▲▲▲
+   =================================================================== */
+
+const Store=(()=>{const m={};let ok=true;
+  try{localStorage.setItem("__t","1");localStorage.removeItem("__t");}catch(e){ok=false;}
+  return{get(k){try{return ok?localStorage.getItem(k):(m[k]??null);}catch(e){return m[k]??null;}},
+         set(k,v){try{ok?localStorage.setItem(k,v):(m[k]=v);}catch(e){m[k]=v;}}};})();
+const KEY="hsflow-progress-v2";
+let done=(()=>{try{return JSON.parse(Store.get(KEY)||"{}");}catch(e){return{};}})();
+const save=()=>Store.set(KEY,JSON.stringify(done));
+
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const CHK={verified:{t:"書目已核",w:0},unverified:{t:"書目待核",w:1},conflict:{t:"來源不一致",w:1}};
+const AC={A:{ac:"var(--teal)",acl:"var(--teal-lite)"},B:{ac:"var(--rust)",acl:"var(--rust-lite)"}};
+
+const byTrack=t=>LIBRARY.filter(p=>p.track===t).sort((a,b)=>a.year-b.year||a.id.localeCompare(b.id));
+const ORDER={A:byTrack("A"),B:byTrack("B")};
+const seqOf=p=>ORDER[p.track].findIndex(x=>x.id===p.id)+1;
+
+const state={view:"home",methods:new Set(),topics:new Set(),q:""};
+
+/* ---------- SVG 簽名圖 ---------- */
+const PLATE=`
+<svg viewBox="0 0 1120 330" role="img" aria-label="左：凹槽上方的非穩態剪切層與聲學回饋迴路；右：圓錐上的附體錐形震波與自相似射線。">
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#7E90A8"/></marker>
+<marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#4FC6DE"/></marker>
+<linearGradient id="fc" x1="0" x2="1"><stop offset="0" stop-color="#4FC6DE" stop-opacity=".14"/><stop offset="1" stop-color="#4FC6DE" stop-opacity=".5"/></linearGradient>
+</defs>
+<text x="46" y="30" font-family="IBM Plex Mono,monospace" font-size="10.5" letter-spacing="1.5" fill="#6F819A">A · UNSTEADY</text>
+<g stroke="#7E90A8" stroke-width="1" marker-end="url(#ar)" opacity=".85">
+<line x1="46" y1="82" x2="128" y2="82"/><line x1="46" y1="108" x2="128" y2="108"/><line x1="46" y1="134" x2="128" y2="134"/></g>
+<text x="46" y="68" font-family="IBM Plex Mono,monospace" font-size="10" fill="#6F819A">M∞ &gt; 1</text>
+<path d="M60 166 H210 V248 H352 V166 H524" fill="none" stroke="#DCE4EE" stroke-width="1.6"/>
+<path d="M210 166 H352 V248 H210 Z" fill="#4FC6DE" opacity=".07"/>
+<path d="M210 166 C238 152,252 182,280 166 C308 148,326 188,352 168" fill="none" stroke="url(#fc)" stroke-width="9" stroke-linecap="round"/>
+<path d="M210 166 C238 152,252 182,280 166 C308 148,326 188,352 168" fill="none" stroke="#4FC6DE" stroke-width="1.3"/>
+<g fill="none" stroke="#4FC6DE" stroke-width="1.1" opacity=".85">
+<path d="M252 168 a7 7 0 1 1 -5 -7"/><path d="M300 164 a10 10 0 1 1 -7 -9.6"/><path d="M340 170 a13 13 0 1 1 -9.5 -12.4"/></g>
+<circle cx="352" cy="167" r="3" fill="#EDF1F6"/>
+<path d="M348 182 C300 228,250 228,214 186" fill="none" stroke="#4FC6DE" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#arC)" opacity=".9"/>
+<text x="250" y="224" font-family="IBM Plex Mono,monospace" font-size="10" fill="#4FC6DE">聲波回饋</text>
+<path d="M60 292 q12 -16 24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0" fill="none" stroke="#4FC6DE" stroke-width="1" opacity=".45"/>
+<text x="60" y="314" font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.2" fill="#6F819A">ROSSITER MODES · f(n)</text>
+<text x="216" y="159" font-family="IBM Plex Mono,monospace" font-size="10" fill="#AFBCCC">L</text>
+<text x="358" y="211" font-family="IBM Plex Mono,monospace" font-size="10" fill="#AFBCCC">D</text>
+<line x1="560" y1="20" x2="560" y2="308" stroke="#33415A" stroke-width="1"/>
+<circle cx="560" cy="166" r="3.5" fill="#141C28" stroke="#33415A"/>
+<text x="1074" y="30" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10.5" letter-spacing="1.5" fill="#6F819A">B · SELF-SIMILAR</text>
+<g stroke="#7E90A8" stroke-width="1" marker-end="url(#ar)" opacity=".85">
+<line x1="596" y1="116" x2="654" y2="116"/><line x1="596" y1="164" x2="654" y2="164"/><line x1="596" y1="212" x2="654" y2="212"/></g>
+<line x1="620" y1="282" x2="1078" y2="282" stroke="#33415A" stroke-width="1" stroke-dasharray="9 5"/>
+<path d="M660 282 L1060 168 L1060 282 Z" fill="#E8A03C" opacity=".09"/>
+<path d="M660 282 L1060 168" fill="none" stroke="#DCE4EE" stroke-width="1.6"/>
+<path d="M660 282 L1060 54" fill="none" stroke="#E8A03C" stroke-width="1.8"/>
+<g stroke="#E8A03C" stroke-width=".9" opacity=".4">
+<line x1="660" y1="282" x2="1060" y2="82"/><line x1="660" y1="282" x2="1060" y2="104"/>
+<line x1="660" y1="282" x2="1060" y2="126"/><line x1="660" y1="282" x2="1060" y2="148"/></g>
+<path d="M760 282 A100 100 0 0 0 754 254" fill="none" stroke="#DCE4EE" stroke-width="1" opacity=".75"/>
+<text x="768" y="273" font-family="IBM Plex Mono,monospace" font-size="11" fill="#EDF1F6">θc</text>
+<path d="M820 282 A160 160 0 0 0 800 192" fill="none" stroke="#E8A03C" stroke-width="1" opacity=".85"/>
+<text x="828" y="244" font-family="IBM Plex Mono,monospace" font-size="11" fill="#E8A03C">β</text>
+<text x="880" y="120" font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.1" fill="#6F819A">沿射線 · 物理量固定</text>
+<text x="1074" y="314" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.2" fill="#6F819A">TAYLOR–MACCOLL ODE</text>
+</svg>`;
+
+/* ---------- 首頁 ---------- */
+function viewHome(){
+  const nAll=LIBRARY.length, nV=LIBRARY.filter(p=>p.biblioCheck==="verified").length;
+  const nPg=LIBRARY.filter(p=>p.pages).length;
+  const tc=t=>{const it=ORDER[t],T=TRACKS[t];return `
+    <button class="tcard" data-go="${t}" style="--ac:${AC[t].ac};--acl:${AC[t].acl}">
+      <span class="code">${t}</span>
+      <span class="lat">${esc(T.latin)}</span>
+      <h2>${esc(T.label)}</h2>
+      <p>${esc(T.thesis)}</p>
+      <span class="foot"><span><b>${it.length}</b> 篇</span>
+        <span>年代 <b>${Math.min(...it.map(p=>p.year))}–${Math.max(...it.map(p=>p.year))}</b></span>
+        <span>已細讀 <b>${it.filter(p=>done[p.id]).length}</b></span></span>
+      <span class="go">進入軌道 ${t} →</span>
+    </button>`;};
+
+  return `
+  <section class="slab fade">
+    <p class="eyebrow">Compressible Flow · Reading Route · 01</p>
+    <h1>別只問「模型對不對」<br><span class="g">要問這個數字<br>是在哪一種量測情境下產生的。</span></h1>
+    <p class="lede">兩條路線，兩種截然不同的知識形態。左邊是非穩態的、設施相依的、必須靠診斷技術才能定義的量；右邊是一條常微分方程與它九十年來的近似解族譜。放在同一個站裡，是因為現代超燃衝壓與乘波體設計同時需要兩者。</p>
+    <div class="cta">
+      <button class="btn solid" data-go="A">進入軌道 A →</button>
+      <button class="btn" data-go="B">進入軌道 B</button>
     </div>
-  </div>
-</section>
-
-<section class="shell">
-  <div class="tracks">
-
-    <a class="track-card" href="track-a.html" data-hue="cyan">
-      <span class="code">A</span>
-      <span class="latin">Supersonic shear layers &amp; cavity flows</span>
-      <h2>超音速剪切層與凹槽流場</h2>
-      <p>從 Brown–Roshko 的大尺度結構，走到對流馬赫數的壓縮性抑制，再到 Rossiter 回饋振盪與超燃衝壓的凹槽穩焰。</p>
-      <div class="meta">
-        <span><b id="n-A">–</b> 篇</span>
-        <span>年代 <b id="span-A">–</b></span>
-        <span>書目已核 <b id="v-A">–</b></span>
-      </div>
-      <span class="go">進入軌道 A →</span>
-    </a>
-
-    <a class="track-card" href="track-b.html" data-hue="amber">
-      <span class="code">B</span>
-      <span class="latin">Taylor–Maccoll conical flow</span>
-      <h2>Taylor–Maccoll 三維錐形流理論解</h2>
-      <p>從 1933 年的原始論文，經 Kopal／Sims 表格與各代近似解，到 Mölder 的四組解與 2024 年的完整重整。</p>
-      <div class="meta">
-        <span><b id="n-B">–</b> 篇</span>
-        <span>年代 <b id="span-B">–</b></span>
-        <span>書目已核 <b id="v-B">–</b></span>
-      </div>
-      <span class="go">進入軌道 B →</span>
-    </a>
-
-  </div>
-</section>
-
-<section class="band">
-  <div class="shell band-grid">
-    <div>
-      <p class="eyebrow">Reading rule</p>
-      <h2>閱讀規則</h2>
+    <div class="plate">${PLATE}
+      <div class="cap"><span>左：回饋迴路決定頻率，量測情境決定數字</span><span>右：一條 ODE 決定整個流場</span></div>
     </div>
-    <ul class="note-list">
+  </section>
+
+  <div class="stats">
+    <div class="stat"><b>${nAll}</b><span>篇文獻</span></div>
+    <div class="stat"><b>${nV}</b><span>書目已核</span></div>
+    <div class="stat"><b>1933–2024</b><span>涵蓋年代</span></div>
+    <div class="stat hi"><b>${Math.round(nPg/nAll*100)}%</b><span>關鍵主張附頁碼</span></div>
+  </div>
+
+  <div class="tcards">${tc("A")}${tc("B")}</div>
+
+  <section class="band">
+    <p class="eyebrow">Reading rule</p><h2>閱讀規則</h2>
+    <ul>
       <li><b>數字不能脫離量測法。</b>剪切層成長率取決於厚度定義（Pitot 剖面、視覺邊界、渦度厚度）；凹槽頻率取決於 L/D、來流邊界層厚度與感測器位置。同一個物理量，換個定義就換個值。</li>
-      <li><b>理論解不能脫離假設。</b>Taylor–Maccoll 假設無黏、無旋、軸對稱、量熱完全氣體。任何與實驗的偏差，先檢查是哪一條假設被違反，再懷疑數值方法。</li>
-      <li><b>表格不是獨立驗證來源。</b>Sims (NASA SP-3004) 的數據源自 Kopal (1947)；用兩者互相驗證等於自我驗證。</li>
-      <li><b>每張卡片的「核心貢獻」只在讀過原文後才填。</b>沒讀過就是「待補」，不用摘要或二次文獻補位。</li>
+      <li><b>理論解不能脫離假設。</b>Taylor–Maccoll 假設無黏、無旋、軸對稱、量熱完全氣體。與實驗有偏差時，先檢查是哪一條假設被違反，再懷疑數值方法。</li>
+      <li><b>表格不是獨立驗證來源。</b>Sims（NASA SP-3004）的數據源自 Kopal（1947）；用兩者互相驗證等於自我驗證。</li>
+      <li><b>「核心貢獻」只在讀過原文後才填。</b>沒讀過就是「待補」，不用摘要或二次文獻補位。</li>
     </ul>
-  </div>
-</section>
+  </section>
 
-<section class="band">
-  <div class="shell band-grid">
-    <div>
-      <p class="eyebrow">Data honesty</p>
-      <h2>資料誠實性</h2>
+  <section class="band">
+    <p class="eyebrow">Data honesty</p><h2>資料誠實性</h2>
+    <ul>
+      <li><b>書目已核</b>　卷、期、頁碼或 DOI 至少對過出版社頁面，或在兩個以上獨立來源中一致。目前 ${nV} 筆。</li>
+      <li><b>書目待核</b>　僅單一來源或憑印象，引用前請自行確認。</li>
+      <li><b>來源不一致</b>　不同文獻記載相衝突，卡片底部寫明衝突內容與建議採用版本。目前四筆：Heller &amp; Bliss (1975) 報告編號、Taylor &amp; Maccoll (1933) 頁碼、Maccoll (1937) 年份、Mölder (1967) 頁碼。</li>
+      <li><b>頁碼欄目前 ${nPg===0?"全部空白":"完成 "+nPg+" 筆"}。</b>關鍵主張要對到頁碼必須逐篇讀 PDF，這是留給你的工作。</li>
+    </ul>
+  </section>
+
+  <section class="band">
+    <p class="eyebrow">How to extend</p><h2>新增你自己的文獻</h2>
+    <ul>
+      <li>整站是<b>單一個 index.html</b>，沒有外部檔案、沒有資料夾、沒有建置流程。用文字編輯器打開，找到頂端的 <code>LIBRARY</code> 陣列，照格式加一個物件即可。</li>
+      <li>年代導軌、側欄編號、篩選晶片、統計數字全部自動更新，<b>不用改任何其他地方</b>。</li>
+      <li><code>topic</code> 是自由字串，填新值就會自動長出新的篩選晶片。</li>
+      <li>沒讀過原文的，<code>contribution</code> 一律留 <code>null</code>，卡片會誠實顯示「待補」。</li>
+    </ul>
+  </section>
+
+  <footer>本站為文獻導引工具，不構成設計程序或試驗規範。書目以出版社頁面為準；卡片上的「追問」由編輯者撰寫，不代表原作者觀點。進度僅存於這台裝置的瀏覽器。</footer>`;
+}
+
+/* ---------- 軌道頁 ---------- */
+function viewTrack(t){
+  const T=TRACKS[t], items=ORDER[t];
+  const uniq=k=>[...new Set(items.map(p=>p[k]))].sort();
+  const chip=(v,b)=>`<button class="chip" data-b="${b}" data-v="${esc(v)}" aria-pressed="${(b==="m"?state.methods:state.topics).has(v)}">${esc(v)}</button>`;
+  return `
+  <section class="slab fade" style="padding:40px 44px">
+    <p class="eyebrow">Track ${t} · ${esc(T.latin)}</p>
+    <h1 style="font-size:clamp(26px,3.4vw,40px)">${esc(T.label)}</h1>
+    <p class="lede">${esc(T.long||T.thesis)}</p>
+  </section>
+  <div class="railbox"><div class="rail" id="rail" aria-label="年代導軌"></div></div>
+  <div class="filters">
+    <span class="lab">方法</span>${uniq("method").map(v=>chip(v,"m")).join("")}
+  </div>
+  <div class="filters">
+    <span class="lab">主題</span>${uniq("topic").map(v=>chip(v,"t")).join("")}
+    <input class="srch" id="srch" type="search" placeholder="搜尋標題、作者、追問…" value="${esc(state.q)}">
+    <button class="chip" id="rst">清除</button>
+  </div>
+  <div class="cards" id="cards"></div>
+  <footer>卡片上的「追問」由編輯者撰寫，用來標示該文獻要面對的可證偽問題，不代表原作者結論。</footer>`;
+}
+
+function cardHTML(p){
+  const c=CHK[p.biblioCheck]||CHK.unverified;
+  const doi=p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi:${esc(p.doi)}</a>`:"";
+  return `<article class="card" id="c-${esc(p.id)}" data-done="${done[p.id]?1:0}">
+    <div class="card-top">
+      <span class="c-num">${seqOf(p)}</span>
+      <span class="c-id">${esc(p.id)} · ${p.year}</span>
+      <span class="tag">${esc(p.method)}</span><span class="tag">${esc(p.topic)}</span>
+      <span class="tag${c.w?" warn":""}">${c.t}</span>
     </div>
-    <ul class="note-list">
-      <li><b>書目已核</b>　卷、期、頁碼或 DOI 至少對過出版社頁面，或在兩個以上獨立來源中一致。</li>
-      <li><b>書目待核</b>　僅有單一來源或憑印象，尚未查證。引用前請自行確認。</li>
-      <li><b>來源不一致</b>　不同文獻對同一筆的年份或頁碼記載相衝突，卡片底部會寫明衝突內容與建議採用哪一版。目前有四筆：Heller &amp; Bliss (1975) 的報告編號、Taylor &amp; Maccoll (1933) 的頁碼、Maccoll (1937) 的年份、Mölder (1967) 的頁碼。</li>
-      <li><b>頁碼欄目前全部空白。</b>關鍵主張要對到頁碼，必須逐篇讀 PDF。這是留給你的工作，不是可以自動生成的東西。</li>
-    </ul>
-  </div>
-</section>
+    <h3>${esc(p.title)}</h3>
+    <div class="meta">${esc(p.authors)}<br><span class="vn">${esc(p.venue)}</span>${doi}</div>
+    <div class="q"><span class="l">追問</span>${esc(p.question)}</div>
+    ${p.contribution
+      ?`<div class="contrib"><span class="l">核心貢獻</span>${esc(p.contribution)}</div>`
+      :`<div class="contrib todo"><span class="l">核心貢獻</span>待補 —— 尚未讀原文，不預先填寫。</div>`}
+    ${p.note?`<div class="nb">${esc(p.note)}</div>`:""}
+    <div class="card-foot">
+      <button class="done" data-id="${esc(p.id)}" aria-pressed="${done[p.id]?"true":"false"}">${done[p.id]?"✓ 已細讀":"標記為已細讀"}</button>
+      <span class="pg">${p.pages?"頁碼："+esc(p.pages):"頁碼：待補"}</span>
+    </div></article>`;
+}
 
-<section class="band">
-  <div class="shell band-grid">
-    <div>
-      <p class="eyebrow">How to extend</p>
-      <h2>新增你自己的文獻</h2>
-    </div>
-    <ul class="note-list">
-      <li>打開 <b>assets/data.js</b>，在 <b>LIBRARY</b> 陣列裡照著註解格式加一個物件即可。年代導軌、篩選標籤、統計數字全部會自動更新，不需要改動任何 HTML。</li>
-      <li><b>topic</b> 欄位是自由字串，填新的值就會自動長出新的篩選晶片。</li>
-      <li>要新增第三條軌道，在 <b>TRACKS</b> 加一組設定，複製 track-a.html 改兩個地方：<code>initTrack("A")</code> 的參數，以及頁首標題。</li>
-      <li>整站是三個純檔案（HTML／CSS／JS），沒有建置流程、沒有相依套件，可直接丟到 GitHub Pages 或任何靜態主機。</li>
-    </ul>
-  </div>
-</section>
+function paintCards(t){
+  const items=ORDER[t].filter(p=>{
+    if(state.methods.size&&!state.methods.has(p.method))return false;
+    if(state.topics.size&&!state.topics.has(p.topic))return false;
+    if(state.q){const h=[p.title,p.authors,p.venue,p.question,p.contribution,p.topic,p.id].join(" ").toLowerCase();
+      if(!h.includes(state.q))return false;}
+    return true;});
+  const el=document.getElementById("cards");
+  el.innerHTML=items.length?items.map(cardHTML).join(""):`<div class="empty">沒有符合的文獻。放寬篩選，或在 LIBRARY 陣列新增一筆。</div>`;
+  el.querySelectorAll(".done").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.id; done[id]?delete done[id]:(done[id]=1); save();
+    paintCards(t); paintRail(t); paintRoute(); paintXP();});
+}
 
-</main>
+function paintRail(t){
+  const items=ORDER[t], Y0=1930,Y1=2030, pos=y=>((y-Y0)/(Y1-Y0))*100;
+  let h='<div class="rail-ax"></div>';
+  for(let y=Y0;y<=Y1;y+=10) h+=`<div class="rail-dec" style="left:${pos(y)}%"><span>${y}</span></div>`;
+  const seen={};
+  items.forEach(p=>{const n=(seen[p.year]=(seen[p.year]||0)+1)-1;
+    h+=`<button class="rail-t" data-id="${esc(p.id)}" data-done="${done[p.id]?1:0}"
+        style="left:${Math.min(99.6,pos(p.year)+n*0.55)}%" aria-label="${esc(p.year+" "+p.title)}">
+        <span class="tip">${p.year} · ${esc(p.authors.split(";")[0])}</span></button>`;});
+  const el=document.getElementById("rail"); el.innerHTML=h;
+  el.querySelectorAll(".rail-t").forEach(b=>b.onclick=()=>
+    document.getElementById("c-"+b.dataset.id)?.scrollIntoView({block:"start"}));
+}
 
-<footer>
-  <div class="shell">
-    <p>本站為文獻導引工具，不構成設計程序或試驗規範。所有書目資料以出版社頁面為準；卡片上的「追問」由編輯者撰寫，不代表原作者觀點。</p>
-    <p>高速流場文獻導引 · 兩條路線</p>
-  </div>
-</footer>
+/* ---------- 側欄 ---------- */
+function paintRoute(){
+  const g=t=>{const T=TRACKS[t];return `
+    <div class="r-group"><i style="background:${AC[t].ac}"></i>軌道 ${t} · ${esc(T.label)}</div>`+
+    ORDER[t].map((p,i)=>`<button class="r-item${state.view===t.toLowerCase()?"":""}" data-id="${esc(p.id)}" data-t="${t}" data-done="${done[p.id]?1:0}">
+      <span class="r-num">${done[p.id]?"✓":i+1}</span>
+      <span class="r-txt"><span>${esc(p.method)} · ${p.year}</span><b>${esc(p.title)}</b></span>
+    </button>`).join("");};
+  const el=document.getElementById("rlist"); el.innerHTML=g("A")+g("B");
+  el.querySelectorAll(".r-item").forEach(b=>b.onclick=()=>{
+    const t=b.dataset.t.toLowerCase();
+    if(state.view!==t){ location.hash="#/"+t; setTimeout(()=>document.getElementById("c-"+b.dataset.id)?.scrollIntoView({block:"start"}),90); }
+    else document.getElementById("c-"+b.dataset.id)?.scrollIntoView({block:"start"});
+    document.getElementById("route").classList.remove("open");});
+  document.getElementById("rhome").setAttribute("aria-current",state.view==="home"?"page":"false");
+}
 
-<script src="assets/data.js"></script>
-<script src="assets/app.js"></script>
-<script>initHome();</script>
+function paintXP(){
+  const n=Object.keys(done).filter(k=>LIBRARY.some(p=>p.id===k)).length, tot=LIBRARY.length;
+  document.getElementById("xpv").textContent=(n*20)+" XP";
+  document.getElementById("xpb").style.width=(tot?n/tot*100:0)+"%";
+  document.getElementById("xpc").textContent=n+"/"+tot;
+}
+
+/* ---------- 路由 ---------- */
+function route(){
+  const h=location.hash.replace("#/","").toLowerCase();
+  const v=(h==="a"||h==="b")?h:"home";
+  state.view=v; document.documentElement.setAttribute("data-view",v);
+  const main=document.getElementById("main");
+  if(v==="home"){ main.innerHTML=viewHome();
+    main.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>location.hash="#/"+b.dataset.go.toLowerCase());
+  }else{
+    const t=v.toUpperCase();
+    state.methods.clear(); state.topics.clear(); state.q="";
+    main.innerHTML=viewTrack(t);
+    main.querySelectorAll(".chip[data-b]").forEach(b=>b.onclick=()=>{
+      const bucket=b.dataset.b==="m"?state.methods:state.topics, val=b.dataset.v;
+      const on=b.getAttribute("aria-pressed")==="true";
+      b.setAttribute("aria-pressed",String(!on)); on?bucket.delete(val):bucket.add(val);
+      paintCards(t);});
+    document.getElementById("srch").oninput=e=>{state.q=e.target.value.trim().toLowerCase();paintCards(t);};
+    document.getElementById("rst").onclick=()=>{state.methods.clear();state.topics.clear();state.q="";
+      main.querySelectorAll(".chip[data-b]").forEach(c=>c.setAttribute("aria-pressed","false"));
+      document.getElementById("srch").value=""; paintCards(t);};
+    paintRail(t); paintCards(t);
+  }
+  paintRoute(); paintXP(); window.scrollTo(0,0);
+}
+addEventListener("hashchange",route);
+document.getElementById("routebtn").onclick=()=>document.getElementById("route").classList.toggle("open");
+route();
+</script>
 </body>
 </html>
