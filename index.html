@@ -274,6 +274,16 @@ main{ margin-left:var(--side); padding:calc(var(--top) + 30px) 34px 96px; }
 .contrib{ margin-top:14px; font-size:14.5px; color:var(--dim); }
 .contrib .l{ display:block; font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim-2); margin-bottom:3px; }
 .contrib.todo{ font-style:italic; color:var(--dim-2); }
+.sum{ margin-top:14px; border-top:1px dashed var(--line); padding-top:12px; }
+.sum>summary{
+  cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim);
+}
+.sum>summary::-webkit-details-marker{ display:none; }
+.sum>summary::before{ content:"▸"; font-size:11px; transition:transform .15s ease; }
+.sum[open]>summary::before{ transform:rotate(90deg); }
+.sum>summary:hover{ color:var(--hue); }
+.sum>div{ margin-top:10px; font-size:14px; line-height:1.85; color:var(--dim); white-space:pre-line; }
 .card .nb{ margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font-family:var(--mono); font-size:11.5px; line-height:1.7; color:var(--dim-2); }
 .card-foot{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:18px; }
 .done{
@@ -469,6 +479,7 @@ const LIBRARY = [
     url: "https://reports.aerade.cranfield.ac.uk/handle/1826.2/4020",
     question: "半經驗常數 κ（渦對流速度比）與 α（相位延遲）外推到超音速時，還有物理意義嗎？",
     contribution: "在 2 ft × 1.5 ft 跨音速風洞量測一系列矩形凹槽頂面與後方的時均與非穩態壓力。指出非穩態壓力同時含隨機與週期成分：淺凹槽（L/D > 4）以隨機成分為主，最強處在後壁附近；深凹槽（L/D < 4）以週期成分為主，並可能形成駐波。把週期成分歸因於凹槽內的聲學共振，由類似邊音的機制激發，據此推得回饋式共振頻率公式。式中常數 K 被指認為渦對流速度佔自由流速度的比例，由陰影照量得約為三分之二。週期壓力的均方根值可達自由流動壓的 0.35 倍，並可用凹槽前緣的小擾流板抑制。",
+    summary: "本摘要由本站自出版社掃描原文整理，頁碼為印刷頁。\n\n量測配置（第 1 頁摘要）：在 2 ft × 1.5 ft 跨音速風洞頂面開一系列矩形凹槽，量測頂面與後方的時均與非穩態壓力。\n\n兩種成分（第 12 頁結論 i、ii）：非穩態壓力同時含隨機與週期成分。淺凹槽（L/D 大於 4）以隨機成分為主，最強處在後壁附近；很淺的凹槽則在氣流重新貼附凹槽頂面處出現局部強擾動區。深凹槽（L/D 小於 4）以週期成分為主。\n\n機制與公式（第 11 頁）：週期成分歸因於凹槽內的聲學共振，由類似邊音的機制激發。由渦與聲波的相位關係推得回饋式共振頻率公式，式中常數 K 被指認為渦對流速度佔自由流速度的比例，由 L/D 等於 2 的陰影照量得約為三分之二。\n\n關鍵前提（第 11 頁）：公式把凹槽內聲速直接取為自由流聲速。原文的辯護是該速度範圍內兩者溫度僅差約 20%，聲速誤差小於 10%，並由此推論凹槽內空氣相對靜止、捕獲渦很弱。這個前提正是外推到超音速時最先失效的地方。\n\n量級與抑制（第 12 頁結論 iii、iv）：週期壓力的均方根值可達自由流動壓的 0.35 倍；在凹槽前緣加裝小擾流板可抑制。\n\n符號對照（第 13 頁）：原文用 k 表示渦對流速度比、用 φ 與 γ 表示相位項。後續文獻改寫為 κ 與 α，查原文時容易對不上。",
     pages: "11",
     biblioCheck: "verified",
     note: "書目依 Reports and Memoranda 原文封面核對：R&M No. 3438、1964 年 10 月、Ministry of Aviation，封面並註明本文取代 R.A.E. Tech. Report No. 64037（A.R.C. 26 621）。追問所指的兩個常數，原文寫作 k（渦對流速度比）與 φ、γ（相位項），κ 與 α 是後續文獻改用的符號。第 11 頁同時說明把凹槽內聲速等同於自由流聲速的依據：該速度範圍內兩者溫度僅差約 20%，聲速誤差小於 10%——這個前提正是外推到超音速時最先失效的地方。"
@@ -493,10 +504,11 @@ const LIBRARY = [
     doi: null,
     url: "https://scispace.com/pdf/aerodynamically-induced-pressure-oscillations-in-cavities-4rvdl6nj4h.pdf",
     question: "抑制概念是真的切斷了回饋迴路，還是只改變了剪切層對尾緣的撞擊角？",
-    contribution: "修正 Rossiter 半經驗公式以描述超音速凹槽流場。",
+    contribution: "不只是修正 Rossiter 半經驗公式，而是提出一套與渦旋回饋不同的凹槽振盪物理模型：把後緣附近剪切層上下擺動造成的週期性質量進出（mass addition／removal）當成驅動源，並等效為後緣的振動活塞（pseudopiston）；凹槽內部則以上下游行進波的疊加形成模態，而非單純的渦旋撞擊頻率。抑制實驗中以後緣斜切最有效，前緣擾流板次之。",
+    summary: "本摘要由使用者提供，非本站自原文整理，內容未經原文核對。\n\n研究對象：武器艙、起落架艙這類開口腔體在跨音速與超音速下產生的離散頻率壓力振盪，音壓可接近或超過 180 dB，造成結構疲勞與儀器失效。\n\n對 Rossiter 模型的異議：Rossiter 的渦旋回饋描述能預測頻率，但作者認為它沒有解釋振盪的本質。凹槽應視為自激的波動系統，渦旋是振盪的結果而不是根本原因。\n\n提出的機制：剪切層在後緣附近下擺時流體進入凹槽（mass addition），上擺時進入量減少（mass removal）。這個週期性質量交換造成的壓縮與膨脹才是壓力波的驅動源，並可等效成後緣的一個振動活塞（pseudopiston）。凹槽內部由上行波與下行波疊加成類駐波結構與模態形狀。\n\n實驗條件：NASA Lewis 8×6 ft 風洞，馬赫數 0.8 至 2.0，L/D 約 2.3 至 5.5。第二模態最常成為主導模態。後緣並非剛性反射面，因此實際模態形狀與理想駐波有明顯偏差。\n\n頻率與振幅的分工：淺腔體的共振頻率仍受馬赫數、L/D 與模態數控制，但模態振幅無法只靠頻率公式預測，必須考慮回饋增益、波放大與剪切層穩定性。\n\n抑制方案：前緣擾流板約可降 20 dB；後緣斜切最成功，可使離散音大幅降低甚至消失；分離式後緣整流罩部分情況有效。內部擋板、內部擾流板、圓化前緣、上游輔助凹槽等則測試失敗。",
     pages: null,
     biblioCheck: "conflict",
-    note: "同一份工作在文獻中有兩種引用：AFFDL-TR-74-133 (1975) 與 AIAA Paper 75-491 (1975)，標題略有不同。引用前請先確定你要指的是哪一份。"
+    note: "同一份工作在文獻中有兩種引用：AFFDL-TR-74-133 (1975) 與 AIAA Paper 75-491 (1975)，標題略有不同。引用前請先確定你要指的是哪一份。核心貢獻與重點摘要改寫自使用者提供的摘要，本站未取得原文，故未標任何頁碼；該摘要把 Rossiter 的年份寫成 1966，與本站 A-12 依 R&M 3438 封面核對的 1964 不符，引用時以原文為準。"
   },
   {
     id: "A-15", track: "A", year: 1978, method: "綜述", topic: "凹槽振盪",
@@ -1185,6 +1197,7 @@ function cardHTML(p){
     ${p.contribution
       ?`<div class="contrib"><span class="l">核心貢獻</span>${esc(p.contribution)}</div>`
       :`<div class="contrib todo"><span class="l">核心貢獻</span>待補 —— 尚未讀原文，不預先填寫。</div>`}
+    ${p.summary?`<details class="sum"><summary>重點摘要</summary><div>${esc(p.summary)}</div></details>`:""}
     ${p.note?`<div class="nb">${esc(p.note)}</div>`:""}
     <div class="card-foot">
       <button class="done" data-id="${esc(p.id)}" aria-pressed="${done[p.id]?"true":"false"}">${done[p.id]?"✓ 已細讀":"標記為已細讀"}</button>
