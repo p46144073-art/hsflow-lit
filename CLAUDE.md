@@ -34,7 +34,9 @@
 
 ### 2. 絕對不要編造 `contribution` 或 `pages`
 
-- `contribution` 只有在**實際讀過原文或摘要**時才填。沒有就是 `null`
+- `contribution` 與 `summary` 只有在**實際讀過原文或摘要**時才填。沒有就是 `null`
+- `summary` 的第一行一定要交代來源。若內容來自使用者提供的轉述而非原文，就照實寫明，
+  並且不要填 `pages`——沒有原文可對頁碼
 - `pages` 只有在確認過該主張出現在該頁時才填。沒有就是 `null`
 - **不要用二次文獻的轉述、不要用標題推測、不要用「這類論文通常會說」來填**
 - 首頁的「關鍵主張附頁碼」百分比是誠實性指標，不准為了讓數字好看而灌水
@@ -81,6 +83,8 @@ node --check /tmp/x.js
   url: null,               // 選填。確定可取得全文的網址才填，卡片會顯示「全文」直達連結
   question: "可證偽的追問句",
   contribution: null,      // 未讀原文一律 null
+  summary: null,           // 選填。摺疊式重點摘要，證據標準與 contribution 相同；
+                           // 第一行必須寫明出處（自原文整理／使用者提供）
   pages: null,             // 未確認一律 null
   biblioCheck: "unverified",  // verified | unverified | conflict
   note: null               // 給使用者的備註
