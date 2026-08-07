@@ -466,6 +466,7 @@ const LIBRARY = [
     authors: "Rossiter, J.E.",
     venue: "Aeronautical Research Council R&M No. 3438",
     doi: null,
+    url: "https://reports.aerade.cranfield.ac.uk/handle/1826.2/4020",
     question: "半經驗常數 κ（渦對流速度比）與 α（相位延遲）外推到超音速時，還有物理意義嗎？",
     contribution: "假設凹槽內聲速固定、剪切層渦的對流速度不變，據此提出以回饋機制為基礎的半經驗共振頻率公式。",
     pages: null,
@@ -490,6 +491,7 @@ const LIBRARY = [
     authors: "Heller, H.H.; Bliss, D.B.",
     venue: "AFFDL-TR-74-133, U.S. Air Force Flight Dynamics Laboratory",
     doi: null,
+    url: "https://scispace.com/pdf/aerodynamically-induced-pressure-oscillations-in-cavities-4rvdl6nj4h.pdf",
     question: "抑制概念是真的切斷了回饋迴路，還是只改變了剪切層對尾緣的撞擊角？",
     contribution: "修正 Rossiter 半經驗公式以描述超音速凹槽流場。",
     pages: null,
@@ -1170,6 +1172,8 @@ function cardHTML(p){
   /* 每筆都給一個入口：有 DOI 的直達出版社，沒有的用標題丟去 Google Scholar 搜。
      這裡不寫入任何書目欄位，只是把既有的 title 組成查詢網址。 */
   const find=` · <a class="find" href="https://scholar.google.com/scholar?q=${encodeURIComponent(p.title)}" target="_blank" rel="noopener" title="用標題到 Google Scholar 搜尋全文">找全文 ↗</a>`;
+  /* url 是選填欄位：確定可取得全文時才填，沒填就只顯示上面的搜尋連結。 */
+  const url=p.url?` · <a href="${esc(p.url)}" target="_blank" rel="noopener">全文 ↗</a>`:"";
   return `<article class="card" id="c-${esc(p.id)}" data-done="${done[p.id]?1:0}">
     <div class="card-top">
       <span class="c-num">${seqOf(p)}</span>
@@ -1178,7 +1182,7 @@ function cardHTML(p){
       <span class="tag${c.w?" warn":""}">${c.t}</span>
     </div>
     <h3>${esc(p.title)}</h3>
-    <div class="meta">${esc(p.authors)}<br><span class="vn">${esc(p.venue)}</span>${doi}${find}</div>
+    <div class="meta">${esc(p.authors)}<br><span class="vn">${esc(p.venue)}</span>${doi}${url}${find}</div>
     <div class="q"><span class="l">追問</span>${esc(p.question)}</div>
     ${p.contribution
       ?`<div class="contrib"><span class="l">核心貢獻</span>${esc(p.contribution)}</div>`
