@@ -264,6 +264,8 @@ main{ margin-left:var(--side); padding:calc(var(--top) + 30px) 34px 96px; }
 .card h3{ font-size:17.5px; line-height:1.42; font-weight:600; margin-bottom:7px; }
 .meta{ font-family:var(--mono); font-size:11.5px; color:var(--dim); line-height:1.75; }
 .meta .vn{ color:var(--dim-2); }
+.meta .find{ color:var(--dim); border-bottom:1px dotted currentColor; }
+.meta .find:hover{ color:var(--hue); }
 .q{
   margin-top:18px; padding:15px 18px; border-radius:12px;
   background:var(--hue-lite); border-left:3px solid var(--hue); font-size:15px; line-height:1.7;
@@ -1165,6 +1167,9 @@ function viewTrack(t){
 function cardHTML(p){
   const c=CHK[p.biblioCheck]||CHK.unverified;
   const doi=p.doi?` · <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi:${esc(p.doi)}</a>`:"";
+  /* 每筆都給一個入口：有 DOI 的直達出版社，沒有的用標題丟去 Google Scholar 搜。
+     這裡不寫入任何書目欄位，只是把既有的 title 組成查詢網址。 */
+  const find=` · <a class="find" href="https://scholar.google.com/scholar?q=${encodeURIComponent(p.title)}" target="_blank" rel="noopener" title="用標題到 Google Scholar 搜尋全文">找全文 ↗</a>`;
   return `<article class="card" id="c-${esc(p.id)}" data-done="${done[p.id]?1:0}">
     <div class="card-top">
       <span class="c-num">${seqOf(p)}</span>
@@ -1173,7 +1178,7 @@ function cardHTML(p){
       <span class="tag${c.w?" warn":""}">${c.t}</span>
     </div>
     <h3>${esc(p.title)}</h3>
-    <div class="meta">${esc(p.authors)}<br><span class="vn">${esc(p.venue)}</span>${doi}</div>
+    <div class="meta">${esc(p.authors)}<br><span class="vn">${esc(p.venue)}</span>${doi}${find}</div>
     <div class="q"><span class="l">追問</span>${esc(p.question)}</div>
     ${p.contribution
       ?`<div class="contrib"><span class="l">核心貢獻</span>${esc(p.contribution)}</div>`
